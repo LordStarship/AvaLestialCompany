@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+
+<HBox fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Login">
+   <children>
+      <BorderPane fx:id="loginLeftPane" styleClass="login-left-pane">
+         <center>
+            <ImageView fx:id="loginLogo" styleClass="login-logo" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@../img/VertinS-logo.png" />
+               </image>
+            </ImageView>
+         </center>
+      </BorderPane>
+      <Pane fx:id="loginRightPane" styleClass="login-right-pane">
+         <children>
+            <Rectangle fx:id="loginBottomBox" styleClass="login-bottom-box" />
+            <Pane fx:id="loginRightBox" styleClass="login-right-box">
+               <children>
+                  <BorderPane fx:id="loginBox" styleClass="login-box">
+                     <center>
+                        <Pane fx:id="loginBoxCenter" styleClass="login-box-center">
+                           <children>
+                              <HBox fx:id="loginBoxLabelTop" styleClass="login-box-label-top">
+                                 <children>
+                                    <Label fx:id="loginBoxSignUp" styleClass="login-box-signup" text="Sign Up" />
+                                    <Label fx:id="loginBoxSignIn" styleClass="login-box-signin" text="Sign In" />
+                                    <Pane fx:id="loginBoxSignSpacer" />
+                                 </children>
+                              </HBox>
+                              <VBox fx:id="loginBoxFill" styleClass="login-box-fill">
+                                 <children>
+                                    <VBox fx:id="loginBoxFillTop" styleClass="login-box-fill-top">
+                                       <children>
+                                          <Pane fx:id="loginBoxFillTopSpacer" />
+                                          <VBox fx:id="loginBoxFillTopFill" styleClass="login-box-fill-top-fill">
+                                             <children>
+                                                <Label fx:id="loginTxtEmailUsername" text="Email / Username">
+                                                   <styleClass>
+                                                      <String fx:value="login-box-fill-signin" />
+                                                      <String fx:value="login-label" />
+                                                   </styleClass>
+                                                </Label>
+                                                <TextField fx:id="loginEmailUsername">
+                                                   <styleClass>
+                                                      <String fx:value="login-box-fill-signin" />
+                                                      <String fx:value="login-text-field" />
+                                                   </styleClass>
+                                                </TextField>
+                                                <Label fx:id="loginTxtPassword" text="Password">
+                                                   <styleClass>
+                                                      <String fx:value="login-box-fill-signin" />
+                                                      <String fx:value="login-label" />
+                                                   </styleClass>
+                                                </Label>
+                                                <TextField fx:id="loginPassword">
+                                                   <styleClass>
+                                                      <String fx:value="login-box-fill-signin" />
+                                                      <String fx:value="login-text-field" />
+                                                   </styleClass>
+                                                </TextField>
+                                             </children>
+                                             <HBox fx:id="loginBoxWrapperForgot" styleClass="login-box-wrapper-forgot">
+                                                <Label fx:id="loginForgotPassword" styleClass="login-forgot-password" text="Forgot Password?" />
+                                             </HBox>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox fx:id="loginBoxFillBottom" styleClass="login-box-fill-bottom">
+                                       <children>
+                                          <Button fx:id="loginButton" styleClass="login-button" text="Sign In" />
+                                          <Label fx:id="loginWithAnother" styleClass="login-with-another" text="Sign In with Other Account" />
+                                          <Label fx:id="loginFacebook" styleClass="login-facebook" text="Sign In With Facebook" />
+                                          <Label fx:id="loginGoogle" styleClass="login-google" text="Sign In With Google" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                     </center>
+                     <bottom>
+                        <HBox fx:id="loginBoxBottom" styleClass="login-box-bottom">
+                           <children>
+                              <Label fx:id="loginBoxBottomLabelLeft" styleClass="label-text" text="Don't have an account?"/>
+                              <Pane fx:id="loginBoxBottomSpacer"/>
+                              <Label fx:id="loginSignup" styleClass="label-text-signup" text="Sign Up"/>
+                           </children>
+                        </HBox>
+                     </bottom>
+                  </BorderPane>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</HBox>
