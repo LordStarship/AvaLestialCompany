@@ -55,14 +55,8 @@
     -fx-font-family: Montserrat;
 }
 
-.login-box-signup {
-    -fx-padding: 20px 20px 0 70px;
-    -fx-font-size: 2em;
-    -fx-font-weight: 600;
-    -fx-text-fill: black;
-}
-
 .login-box-signin {
+    -fx-background-color: transparent;
     -fx-padding: 10px 0 10px 0;
     -fx-font-size: 2.5em;
     -fx-font-weight: 800;
@@ -73,6 +67,10 @@
 
 .login-box-signin:hover {
     -fx-cursor: hand;
+}
+
+.login-box-label-top {
+    -fx-background-color: transparent;
 }
 
 .login-box-fill {
@@ -148,3 +146,24 @@
     -fx-cursor: hand;
     -fx-underline: true;
 }
+
+/* navbar */
+
+.laporan-pane {
+    -fx-font-family: Inter;
+}
+
+.laporan-navbar-pane {
+    -fx-border-color: black;
+    -fx-border-width: 2.0;
+    -fx-border-radius: 20;
+}
+
+.laporan-navbar {
+    -fx-stroke-width: 1.5;
+    -fx-background-radius: 0;
+    -fx-scale-on-press: false;
+}
+
+
+

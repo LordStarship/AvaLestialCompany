@@ -1,19 +1,26 @@
 package com.example;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 
 public class Login {
     @FXML
@@ -32,16 +39,8 @@ public class Login {
     private BorderPane loginBox;
     @FXML
     private Pane loginBoxCenter;
-    @FXML
-    private HBox loginBoxBottom;
-    @FXML
-    private Pane loginBoxBottomSpacer;
-    @FXML
-    private Label loginSignup;
     @FXML 
     private HBox loginBoxLabelTop;
-    @FXML
-    private Label loginBoxSignUp;
     @FXML
     private Label loginBoxSignIn;
     @FXML
@@ -61,7 +60,7 @@ public class Login {
     @FXML 
     private Label loginTxtPassword;
     @FXML
-    private TextField loginPassword;
+    private PasswordField loginPassword;
     @FXML
     private HBox loginBoxWrapperForgot;
     @FXML
@@ -102,16 +101,15 @@ public class Login {
         loginBox.prefWidthProperty().bind(loginRightBox.widthProperty().multiply(0.8));
         loginBox.layoutXProperty().bind(loginRightBox.widthProperty().subtract(loginBox.widthProperty()).divide(2));
         loginBox.layoutYProperty().bind(loginRightBox.heightProperty().subtract(loginBox.heightProperty()).divide(2));
+        
+        loginBoxLabelTop.prefWidthProperty().bind(loginBoxCenter.widthProperty());
+        loginBoxLabelTop.prefHeightProperty().bind(loginBoxCenter.heightProperty().multiply(0.2));
+        loginBoxLabelTop.setAlignment(Pos.CENTER);
 
         loginBoxCenter.prefHeightProperty().bind(loginBox.heightProperty().multiply(0.6));
         loginBoxCenter.prefWidthProperty().bind(loginBox.widthProperty().multiply(0.8));
-
-        loginBoxBottom.prefHeightProperty().bind(loginBox.heightProperty().multiply(0.1));
-        loginBoxBottom.prefWidthProperty().bind(loginBox.widthProperty().multiply(0.8));
-
-        loginBoxBottomSpacer.prefWidthProperty().bind((loginBoxBottom).widthProperty().multiply(0.05));
         
-        loginBoxFill.prefHeightProperty().bind(loginBoxCenter.heightProperty().multiply(0.1));
+        loginBoxFill.prefHeightProperty().bind(loginBoxCenter.heightProperty().multiply(0.85));
         loginBoxFill.prefWidthProperty().bind(loginBoxCenter.widthProperty());
         loginBoxFill.layoutXProperty().bind(loginBoxCenter.widthProperty().subtract(loginBoxFill.widthProperty()).divide(2));
         loginBoxFill.layoutYProperty().bind(loginBoxCenter.heightProperty().subtract(loginBoxFill.heightProperty()));
@@ -135,5 +133,42 @@ public class Login {
         
         loginButton.prefHeightProperty().bind(loginBoxFillBottom.heightProperty().multiply(0.3));
         loginButton.prefWidthProperty().bind(loginBoxFillBottom.widthProperty().multiply(0.3));
+
+        loginButton.setOnAction(event -> {
+            String username = loginEmailUsername.getText();
+            String password = loginPassword.getText();
+            Popup usernamePopup = createPopup("Please enter your username!");
+            Popup passwordPopup = createPopup("Please enter your password!");
+
+            if (username.isEmpty()) {
+                usernamePopup.show(loginEmailUsername, 793, 200);
+            } else if (password.isEmpty()) {
+                passwordPopup.show(loginPassword, 793, 200); 
+            } else {
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("fxml/laporan.fxml"));
+                    String css = getClass().getResource("css/application.css").toExternalForm();
+                    Font interNormal = Font.loadFont(getClass().getResource("fonts/Inter-VariableFont_slnt,wght.ttf").toExternalForm(), 24);
+                    Stage newStage = new Stage();
+                    Scene scene = new Scene(root);
+                    scene.getStylesheets().add(css);
+                    newStage.setTitle("VertinS");
+                    newStage.setScene(scene);
+                    Stage oldStage = (Stage) loginButton.getScene().getWindow();
+                    oldStage.close();
+                    newStage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+    private Popup createPopup(String message) {
+        Popup popup = new Popup();
+        Label label = new Label(message);
+        VBox box = new VBox(label);
+        box.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-font-size: 1.25em;");
+        popup.getContent().add(box);
+        return popup;
     }   
 }
