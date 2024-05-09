@@ -1,17 +1,15 @@
 package com.example;
 
+import com.example.Connections.DB;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -139,6 +137,7 @@ public class Login {
             String password = loginPassword.getText();
             Popup usernamePopup = createPopup("Please enter your username!");
             Popup passwordPopup = createPopup("Please enter your password!");
+            Popup wrongLogin = createPopup("Incorrect username or password!");
 
             if (username.isEmpty()) {
                 usernamePopup.show(loginEmailUsername, 793, 200);
@@ -146,17 +145,24 @@ public class Login {
                 passwordPopup.show(loginPassword, 793, 200); 
             } else {
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("fxml/laporan.fxml"));
-                    String css = getClass().getResource("css/application.css").toExternalForm();
-                    Font interNormal = Font.loadFont(getClass().getResource("fonts/Inter-VariableFont_slnt,wght.ttf").toExternalForm(), 24);
-                    Stage newStage = new Stage();
-                    Scene scene = new Scene(root);
-                    scene.getStylesheets().add(css);
-                    newStage.setTitle("VertinS");
-                    newStage.setScene(scene);
-                    Stage oldStage = (Stage) loginButton.getScene().getWindow();
-                    oldStage.close();
-                    newStage.show();
+                    final DB databaseUser = new DB();
+                    boolean isAuthenticated = databaseUser.authenticateUser(username, password);
+                    if(isAuthenticated) {
+                        Parent root = FXMLLoader.load(getClass().getResource("fxml/laporan.fxml"));
+                        String css = getClass().getResource("css/application.css").toExternalForm();
+                        Font interNormal = Font.loadFont(getClass().getResource("fonts/Inter-VariableFont_slnt,wght.ttf").toExternalForm(), 24);
+                        Stage newStage = new Stage();
+                        Scene scene = new Scene(root);
+                        scene.getStylesheets().add(css);
+                        newStage.setTitle("VertinS");
+                        newStage.setScene(scene);
+                        Stage oldStage = (Stage) loginButton.getScene().getWindow();
+                        oldStage.close();
+                        newStage.show();
+                    }
+                    else {
+                        wrongLogin.show(loginEmailUsername, 793, 200); 
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

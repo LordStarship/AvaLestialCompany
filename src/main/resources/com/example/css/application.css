@@ -2,7 +2,6 @@
 
 * {
     -fx-background-color: white;
-    -fx-font-family: Montserrat;
 }
 
 .login-left-pane {
@@ -117,6 +116,7 @@
 
 .login-box-fill-bottom {
     -fx-background-color: white;
+    -fx-font-family: Montserrat;
 }
 
 .login-button, .login-with-another, .login-facebook, .login-google {
@@ -130,6 +130,7 @@
     -fx-background-color: #64ED85;
     -fx-border-radius: 50; 
     -fx-background-radius: 50; 
+    -fx-font-family: Montserrat;
 }
 
 .login-button:hover {
@@ -139,6 +140,7 @@
 
 .login-with-another {
     -fx-font-weight: 700;
+    -fx-font-family: Montserrat;
     -fx-padding: 2% 0;
 }
 
@@ -150,19 +152,32 @@
 /* navbar */
 
 .laporan-pane {
-    -fx-font-family: Inter;
+    -fx-font-family: "Inter";
 }
 
 .laporan-navbar-pane {
     -fx-border-color: black;
-    -fx-border-width: 2.0;
+    -fx-border-width: 1.5;
     -fx-border-radius: 20;
+    -fx-font-family: "Inter";
 }
 
 .laporan-navbar {
-    -fx-stroke-width: 1.5;
+    -fx-border-width: 1.5;
     -fx-background-radius: 0;
+    -fx-border-color: black;
     -fx-scale-on-press: false;
+    -fx-font-family: "Inter";
+    -fx-font-size: 20px;
+}
+
+.laporan-table {
+    -fx-font-size: 20px;
+    -fx-font-family: "Inter";
+}
+
+.laporan-table-col {
+    -fx-font-family: "Inter";
 }
 
 
