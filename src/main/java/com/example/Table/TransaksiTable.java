@@ -1,37 +1,42 @@
 package com.example.Table;
 
-public class TransaksiTable {
-    private final int id_transaksi;
-    private final String date_transaksi;
-    private final String name_barang;
-    private final String amount_barang;
-    private final String note_transaksi;
+import java.sql.Date;
 
-    public TransaksiTable(int id_transaksi, String date_transaksi, String name_barang, String amount_barang, String note_transaksi) {
-        this.id_transaksi = id_transaksi;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
+public class TransaksiTable {
+    private SimpleIntegerProperty id_transaksi = new SimpleIntegerProperty();
+    private Date date_transaksi;
+    private SimpleStringProperty name_barang = new SimpleStringProperty();
+    private SimpleStringProperty amount_transaksi = new SimpleStringProperty();
+    private SimpleStringProperty note_transaksi = new SimpleStringProperty(); 
+        
+    public TransaksiTable(int id_transaksi, Date date_transaksi, String name_barang, String amount_transaksi, String note_transaksi) {
+        this.id_transaksi = new SimpleIntegerProperty(id_transaksi);
         this.date_transaksi = date_transaksi;
-        this.name_barang = name_barang;
-        this.amount_barang = amount_barang;
-        this.note_transaksi = note_transaksi;
+        this.name_barang = new SimpleStringProperty(name_barang);
+        this.amount_transaksi = new SimpleStringProperty(amount_transaksi);
+        this.note_transaksi = new SimpleStringProperty(note_transaksi);
     }
 
     public int getId_transaksi() {
-        return id_transaksi;
+        return id_transaksi.get();
     }
 
-    public String getDate_transaksi() {
+    public Date getDate_transaksi() {
         return date_transaksi;
     }
 
     public String getName_barang() {
-        return name_barang;
+        return name_barang.get();
     }
 
-    public String getAmount_barang() {
-        return amount_barang;
+    public String getAmount_transaksi() {
+        return amount_transaksi.get();
     }
 
     public String getNote_transaksi() {
-        return note_transaksi;
+        return note_transaksi.get();
     }
 }

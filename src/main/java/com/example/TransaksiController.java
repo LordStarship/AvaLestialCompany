@@ -7,6 +7,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import com.example.Connections.*;
+import com.example.Table.LaporanTable;
+import com.example.Table.TransaksiTable;
+
+import java.sql.*;
 
 public class TransaksiController {
     @FXML
@@ -19,6 +24,8 @@ public class TransaksiController {
     private Button transaksiDataGame;
     @FXML
     private Button transaksiPengguna;
+    @FXML
+    private TableView<TransaksiTable> transaksiTable;
 
     @FXML
     private void buttonTransaksiLaporan(ActionEvent event) throws Exception {
@@ -73,5 +80,36 @@ public class TransaksiController {
         Stage stage = (Stage) transaksiPengguna.getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void initialize() {
+        fetchLaporanData();
+    }
+
+    private void fetchLaporanData() {
+        try (Connection connection = DB.getConnection()) {
+            String query =
+                "SELECT T.id_transaksi, T.date_transaksi, B.name_barang, T.amount_transaksi, T.note_transaksi" +
+                "FROM Transaksi Table T " +
+                "JOIN BarangTable B ON T.id_barang = B.id_barang " +
+                "JOIN GameTable G ON B.id_game = G.id_game";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query);
+                 ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    int id_transaksi = resultSet.getInt("id_transaksi");
+                    Date date_transaksi = resultSet.getDate("date_transaksi");
+                    String name_barang = resultSet.getString("name_barang");
+                    String amount_transaksi = resultSet.getString("amount_transaksi");
+                    String note_transaksi = resultSet.getString("note_transaksi");
+
+                    TransaksiTable transaksiData = new TransaksiTable(id_transaksi, date_transaksi, name_barang, amount_transaksi, note_transaksi);
+                    transaksiTable.getItems().add(laporanData);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

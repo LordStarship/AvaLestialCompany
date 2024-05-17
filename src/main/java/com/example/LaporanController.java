@@ -1,36 +1,16 @@
 package com.example;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ResourceBundle.Control;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.sql.*;
+import java.util.Date;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import com.example.Table.LaporanTable;
 import com.example.Connections.*;
@@ -117,29 +97,27 @@ public class LaporanController {
     }
 
     public void initialize() {
-        // laporanID.setCellValueFactory(new PropertyValueFactory<>("id_laporan"));
-        // laporanDate.setCellValueFactory(new PropertyValueFactory<>("date_transaksi"));
-        // laporanIDAccount.setCellValueFactory(new PropertyValueFactory<>("id_akun"));
-        // laporanGame.setCellValueFactory(new PropertyValueFactory<>("name_game"));
-        // laporanAmount.setCellValueFactory(new PropertyValueFactory<>("amount_transaksi"));
-        
-        // fetchLaporanData();
+        fetchLaporanData();
     }
+
     private void fetchLaporanData() {
         try (Connection connection = DB.getConnection()) {
-            String query = "SELECT L.id_laporan, T.date_transaksi, T.id_akun, T.name_game, T.amount_transaksi " +
-                           "FROM LaporanTable L " +
-                           "JOIN Transaksi T ON L.id_transaksi = T.id_transaksi";
+            String query =
+                "SELECT L.id_laporan, T.id_transaksi, B.id_barang, G.id_game, T.amount_transaksi" +
+                "FROM LaporanTable L " +
+                "JOIN TransaksiTable T ON L.id_transaksi = T.id_transaksi " +
+                "JOIN BarangTable B ON T.id_barang = B.id_barang " +
+                "JOIN GameTable G ON B.id_game = G.id_game";
             try (PreparedStatement preparedStatement = connection.prepareStatement(query);
                  ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     int id_laporan = resultSet.getInt("id_laporan");
-                    String date_transaksi = resultSet.getString("date_transaksi");
-                    int id_akun = resultSet.getInt("id_akun");
+                    Date date_transaksi = resultSet.getDate("date_transaksi");
+                    int id_barang = resultSet.getInt("id_barang");
                     String name_game = resultSet.getString("name_game");
                     String amount_transaksi = resultSet.getString("amount_transaksi");
-
-                    LaporanTable laporanData = new LaporanTable(id_laporan, date_transaksi, id_akun, name_game, amount_transaksi);
+                    
+                    LaporanTable laporanData = new LaporanTable(id_laporan, date_transaksi, id_barang, name_game, amount_transaksi);
                     laporanTable.getItems().add(laporanData);
                 }
             } catch (SQLException e) {
