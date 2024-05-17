@@ -14,7 +14,7 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 
-<HBox fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Login">
+<HBox fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.LoginController">
    <children>
       <BorderPane fx:id="loginLeftPane" styleClass="login-left-pane">
          <center>
@@ -80,9 +80,6 @@
                                     <VBox fx:id="loginBoxFillBottom" styleClass="login-box-fill-bottom">
                                        <children>
                                           <Button fx:id="loginButton" styleClass="login-button" text="Sign In" />
-                                          <Label fx:id="loginWithAnother" styleClass="login-with-another" text="Sign In with Other Account" />
-                                          <Label fx:id="loginFacebook" styleClass="login-facebook" text="Sign In With Facebook" />
-                                          <Label fx:id="loginGoogle" styleClass="login-google" text="Sign In With Google" />
                                        </children>
                                     </VBox>
                                  </children>

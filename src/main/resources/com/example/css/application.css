@@ -86,13 +86,13 @@
 
 .login-label {
     -fx-font-family: Montserrat;
-    -fx-font-size: 2em;
+    -fx-font-size: 1.75em;
     -fx-padding: 20px 0 0 0;
 }
 
 .login-text-field {
     -fx-font-family: Montserrat;
-    -fx-font-size: 2em;
+    -fx-font-size: 1.25em;
     -fx-background-color: transparent;
     -fx-border-color: transparent transparent #3A5866 transparent;
     -fx-border-width: 0 0 1 0;
@@ -157,22 +157,22 @@
 
 .laporan-navbar-pane {
     -fx-border-color: black;
-    -fx-border-width: 1.5;
+    -fx-border-width: 1;
     -fx-border-radius: 20;
     -fx-font-family: "Inter";
 }
 
 .laporan-navbar {
-    -fx-border-width: 1.5;
+    -fx-border-width: 1 0 0 0;
     -fx-background-radius: 0;
     -fx-border-color: black;
     -fx-scale-on-press: false;
     -fx-font-family: "Inter";
-    -fx-font-size: 20px;
+    -fx-font-size: 1.25em;
 }
 
 .laporan-table {
-    -fx-font-size: 20px;
+    -fx-font-size: 1.25em;
     -fx-font-family: "Inter";
 }
 

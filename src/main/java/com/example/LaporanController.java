@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import com.example.Table.LaporanTable;
@@ -33,7 +34,7 @@ public class LaporanController {
     @FXML
     private TableColumn<LaporanTable, Integer> laporanID;
     @FXML
-    private TableColumn<LaporanTable, String> laporanDate;
+    private TableColumn<LaporanTable, Date> laporanDate;
     @FXML
     private TableColumn<LaporanTable, Integer> laporanIDAccount;
     @FXML
@@ -97,17 +98,22 @@ public class LaporanController {
     }
 
     public void initialize() {
+        laporanID.setCellValueFactory(new PropertyValueFactory<>("id_laporan"));
+        laporanDate.setCellValueFactory(new PropertyValueFactory<>("date_transaksi"));
+        laporanIDAccount.setCellValueFactory(new PropertyValueFactory<>("id_barang"));
+        laporanGame.setCellValueFactory(new PropertyValueFactory<>("name_game"));
+        laporanAmount.setCellValueFactory(new PropertyValueFactory<>("amount_transaksi"));
         fetchLaporanData();
     }
 
     private void fetchLaporanData() {
         try (Connection connection = DB.getConnection()) {
             String query =
-                "SELECT L.id_laporan, T.id_transaksi, B.id_barang, G.id_game, T.amount_transaksi" +
-                "FROM LaporanTable L " +
-                "JOIN TransaksiTable T ON L.id_transaksi = T.id_transaksi " +
-                "JOIN BarangTable B ON T.id_barang = B.id_barang " +
-                "JOIN GameTable G ON B.id_game = G.id_game";
+                "SELECT L.id_laporan, T.date_transaksi, B.id_barang, G.name_game, T.amount_transaksi " +
+                "FROM laporan L " +
+                "JOIN transaksi T ON L.id_transaksi = T.id_transaksi " +
+                "JOIN barang B ON T.id_barang = B.id_barang " +
+                "JOIN game G ON B.id_game = G.id_game";
             try (PreparedStatement preparedStatement = connection.prepareStatement(query);
                  ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {

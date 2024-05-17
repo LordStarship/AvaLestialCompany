@@ -1,11 +1,15 @@
 package com.example;
 
+import java.sql.*;
+import com.example.Connections.DB;
+import com.example.Table.BarangTable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 public class BarangController {
@@ -19,6 +23,8 @@ public class BarangController {
     private Button barangDataGame;
     @FXML
     private Button barangPengguna;
+    @FXML
+    private TableView<BarangTable> barangTable;
 
     @FXML
     private void buttonBarangLaporan(ActionEvent event) throws Exception {
@@ -73,5 +79,37 @@ public class BarangController {
         Stage stage = (Stage) barangLaporan.getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void initialize() {
+        fetchBarangData();
+    }
+
+    private void fetchBarangData() {
+        try (Connection connection = DB.getConnection()) {
+            String query =
+                "SELECT B.id_barang, B.name_barang, B.email_barang, G.name_game, G.variation_game, G.type_game, B.amount_barang " +
+                "FROM barang B " +
+                "JOIN game G ON B.id_game = G.id_game";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query);
+                 ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    int id_barang = resultSet.getInt("id_barang");
+                    String name_barang = resultSet.getString("name_barang");
+                    String email_barang = resultSet.getString("email_barang");
+                    String name_game = resultSet.getString("name_game");
+                    String variation_game = resultSet.getString("variation_game");
+                    String type_game = resultSet.getString("type_game");
+                    String amount_barang = resultSet.getString("amount_barang");
+
+                    BarangTable barangData = new BarangTable(id_barang, name_barang, email_barang, name_game, variation_game, type_game, amount_barang);
+                    barangTable.getItems().add(barangData);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

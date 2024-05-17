@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.Connections.DB;
+import com.example.Connections.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -20,7 +21,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
-public class Login {
+public class LoginController {
     @FXML
     private HBox loginPane;
     @FXML
@@ -67,12 +68,6 @@ public class Login {
     private VBox loginBoxFillBottom;
     @FXML
     private Button loginButton;
-    @FXML
-    private Label loginWithAnother;
-    @FXML
-    private Label loginFacebook;
-    @FXML
-    private Label loginGoogle;
   
 
     public void initialize() {
@@ -138,6 +133,7 @@ public class Login {
             Popup usernamePopup = createPopup("Please enter your username!");
             Popup passwordPopup = createPopup("Please enter your password!");
             Popup wrongLogin = createPopup("Incorrect username or password!");
+            String hashedPassword = User.hashPassword(password);
 
             if (username.isEmpty()) {
                 usernamePopup.show(loginEmailUsername, 793, 200);
@@ -145,16 +141,18 @@ public class Login {
                 passwordPopup.show(loginPassword, 793, 200); 
             } else {
                 try {
-                    final DB databaseUser = new DB();
-                    boolean isAuthenticated = databaseUser.authenticateUser(username, password);
+                    DB databaseUser = new DB();
+                    boolean isAuthenticated = databaseUser.authenticateUser(username, hashedPassword);
                     if(isAuthenticated) {
                         Parent root = FXMLLoader.load(getClass().getResource("fxml/laporan.fxml"));
                         String css = getClass().getResource("css/application.css").toExternalForm();
                         Font interNormal = Font.loadFont(getClass().getResource("fonts/Inter-VariableFont_slnt,wght.ttf").toExternalForm(), 24);
                         Stage newStage = new Stage();
+                        Image icon = new Image(getClass().getResourceAsStream("img/app-logo.png"));
+                        newStage.getIcons().add(icon);
                         Scene scene = new Scene(root);
                         scene.getStylesheets().add(css);
-                        newStage.setTitle("VertinS");
+                        newStage.setTitle("Ava Lestial Company");
                         newStage.setScene(scene);
                         Stage oldStage = (Stage) loginButton.getScene().getWindow();
                         oldStage.close();
