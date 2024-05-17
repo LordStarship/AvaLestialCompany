@@ -75,7 +75,7 @@
                   <Insets left="30.0" />
                </padding>
             </HBox>
-            <TableView fx:id="laporanTable" prefHeight="500.0" prefWidth="755.0" styleClass="laporan-table">
+            <TableView fx:id="dataGameTable" prefHeight="500.0" prefWidth="755.0" styleClass="laporan-table">
               <columns>
                 <TableColumn fx:id="dataGameID" prefWidth="75.0" reorderable="false" styleClass="laporan-table-col" text="ID" />
                 <TableColumn fx:id="dataGameGame" prefWidth="75.0" reorderable="false" styleClass="laporan-table-col" text="Game" />
