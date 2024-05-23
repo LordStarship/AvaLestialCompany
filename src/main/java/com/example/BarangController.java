@@ -2,7 +2,6 @@ package com.example;
 
 import java.sql.*;
 import com.example.Connections.DB;
-import com.example.Connections.UserSession;
 import com.example.Table.BarangTable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,11 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class BarangController {
@@ -29,25 +24,7 @@ public class BarangController {
     @FXML
     private Button barangPengguna;
     @FXML
-    private Button logoutButton;
-    @FXML
     private TableView<BarangTable> barangTable;
-    @FXML 
-    private TableColumn<BarangTable, Integer> barangID;
-    @FXML 
-    private TableColumn<BarangTable, String> barangName;
-    @FXML 
-    private TableColumn<BarangTable, String> barangEmail;
-    @FXML 
-    private TableColumn<BarangTable, String> barangGame;
-    @FXML 
-    private TableColumn<BarangTable, String> barangVariation;
-    @FXML 
-    private TableColumn<BarangTable, String> barangType;
-    @FXML 
-    private TableColumn<BarangTable, String> barangAmount;
-    @FXML 
-    private TableColumn<BarangTable, HBox> barangAction;
 
     @FXML
     private void buttonBarangLaporan(ActionEvent event) throws Exception {
@@ -105,34 +82,7 @@ public class BarangController {
     }
 
     public void initialize() {
-        barangID.setCellValueFactory(new PropertyValueFactory<>("id_barang"));
-        barangName.setCellValueFactory(new PropertyValueFactory<>("name_barang"));
-        barangEmail.setCellValueFactory(new PropertyValueFactory<>("email_barang"));
-        barangGame.setCellValueFactory(new PropertyValueFactory<>("name_game"));
-        barangVariation.setCellValueFactory(new PropertyValueFactory<>("variation_game"));
-        barangType.setCellValueFactory(new PropertyValueFactory<>("type_game"));
-        barangAmount.setCellValueFactory(new PropertyValueFactory<>("amount_barang"));
-        barangAction.setCellValueFactory(new PropertyValueFactory<>("button_box"));
         fetchBarangData();
-
-        logoutButton.setOnAction(event -> {
-            UserSession.getInstance().clearSession();
-            try {
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
-            String css = getClass().getResource("css/application.css").toExternalForm();
-            Font montserratNormal = Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
-            Stage newStage = new Stage();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(css);
-            newStage.setFullScreen(true);
-            newStage.setScene(scene);
-            Stage oldStage = (Stage) logoutButton.getScene().getWindow();
-            oldStage.close();
-            newStage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
     }
 
     private void fetchBarangData() {
@@ -140,26 +90,20 @@ public class BarangController {
             String query =
                 "SELECT B.id_barang, B.name_barang, B.email_barang, G.name_game, G.variation_game, G.type_game, B.amount_barang " +
                 "FROM barang B " +
-                "JOIN game G ON B.id_game = G.id_game " + 
-                "WHERE B.id_user = ?";
-            int userID = UserSession.getInstance().getLoggedInID();
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                preparedStatement.setInt(1, userID);
-                try(ResultSet resultSet = preparedStatement.executeQuery()) {
-                    while (resultSet.next()) {
-                        int id_barang = resultSet.getInt("id_barang");
-                        String name_barang = resultSet.getString("name_barang");
-                        String email_barang = resultSet.getString("email_barang");
-                        String name_game = resultSet.getString("name_game");
-                        String variation_game = resultSet.getString("variation_game");
-                        String type_game = resultSet.getString("type_game");
-                        String amount_barang = resultSet.getString("amount_barang");
-    
-                        BarangTable barangData = new BarangTable(id_barang, name_barang, email_barang, name_game, variation_game, type_game, amount_barang);
-                        barangTable.getItems().add(barangData);
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
+                "JOIN game G ON B.id_game = G.id_game";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query);
+                 ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    int id_barang = resultSet.getInt("id_barang");
+                    String name_barang = resultSet.getString("name_barang");
+                    String email_barang = resultSet.getString("email_barang");
+                    String name_game = resultSet.getString("name_game");
+                    String variation_game = resultSet.getString("variation_game");
+                    String type_game = resultSet.getString("type_game");
+                    String amount_barang = resultSet.getString("amount_barang");
+
+                    BarangTable barangData = new BarangTable(id_barang, name_barang, email_barang, name_game, variation_game, type_game, amount_barang);
+                    barangTable.getItems().add(barangData);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

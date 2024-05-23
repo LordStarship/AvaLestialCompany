@@ -12,7 +12,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import com.example.Table.LaporanTable;
 import com.example.Connections.*;
@@ -30,8 +29,6 @@ public class LaporanController {
     private Button laporanDataGame;
     @FXML
     private Button laporanPengguna;
-    @FXML
-    private Button logoutButton;
     @FXML
     private TableView<LaporanTable> laporanTable;
     @FXML
@@ -107,25 +104,6 @@ public class LaporanController {
         laporanGame.setCellValueFactory(new PropertyValueFactory<>("name_game"));
         laporanAmount.setCellValueFactory(new PropertyValueFactory<>("amount_transaksi"));
         fetchLaporanData();
-
-        logoutButton.setOnAction(event -> {
-            UserSession.getInstance().clearSession();
-            try {
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
-            String css = getClass().getResource("css/application.css").toExternalForm();
-            Font montserratNormal = Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
-            Stage newStage = new Stage();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(css);
-            newStage.setFullScreen(true);
-            newStage.setScene(scene);
-            Stage oldStage = (Stage) logoutButton.getScene().getWindow();
-            oldStage.close();
-            newStage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
     }
 
     private void fetchLaporanData() {
@@ -135,24 +113,18 @@ public class LaporanController {
                 "FROM laporan L " +
                 "JOIN transaksi T ON L.id_transaksi = T.id_transaksi " +
                 "JOIN barang B ON T.id_barang = B.id_barang " +
-                "JOIN game G ON B.id_game = G.id_game " +
-                "WHERE L.id_user = ?";
-            int userID = UserSession.getInstance().getLoggedInID();
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                preparedStatement.setInt(1, userID);
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    while (resultSet.next()) {
-                        int id_laporan = resultSet.getInt("id_laporan");
-                        Date date_transaksi = resultSet.getDate("date_transaksi");
-                        int id_barang = resultSet.getInt("id_barang");
-                        String name_game = resultSet.getString("name_game");
-                        String amount_transaksi = resultSet.getString("amount_transaksi");
-                        
-                        LaporanTable laporanData = new LaporanTable(id_laporan, date_transaksi, id_barang, name_game, amount_transaksi);
-                        laporanTable.getItems().add(laporanData);
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
+                "JOIN game G ON B.id_game = G.id_game";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query);
+                 ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    int id_laporan = resultSet.getInt("id_laporan");
+                    Date date_transaksi = resultSet.getDate("date_transaksi");
+                    int id_barang = resultSet.getInt("id_barang");
+                    String name_game = resultSet.getString("name_game");
+                    String amount_transaksi = resultSet.getString("amount_transaksi");
+                    
+                    LaporanTable laporanData = new LaporanTable(id_laporan, date_transaksi, id_barang, name_game, amount_transaksi);
+                    laporanTable.getItems().add(laporanData);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

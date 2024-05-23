@@ -1,26 +1,11 @@
 package com.example;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import com.example.Connections.DB;
-import com.example.Connections.UserSession;
-import com.example.Table.GameTable;
-import com.example.Table.UserTable;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class PenggunaController {
@@ -34,22 +19,6 @@ public class PenggunaController {
     private Button penggunaDataGame;
     @FXML
     private Button penggunaPengguna;
-    @FXML
-    private Button logoutButton;
-    @FXML
-    private TableView<UserTable> penggunaTable;
-    @FXML
-    private TableColumn<UserTable, Integer> penggunaID;
-    @FXML
-    private TableColumn<UserTable, String> penggunaName;
-    @FXML
-    private TableColumn<UserTable, Integer> penggunaRole;
-    @FXML
-    private TableColumn<UserTable, String> penggunaUsername;
-    @FXML
-    private TableColumn<UserTable, String> penggunaEmail;
-    @FXML
-    private TableColumn<UserTable, HBox> penggunaAction;
 
     @FXML
     private void buttonPenggunaLaporan(ActionEvent event) throws Exception {
@@ -104,61 +73,5 @@ public class PenggunaController {
         Stage stage = (Stage) penggunaPengguna.getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-    }
-
-    public void initialize() {
-        penggunaID.setCellValueFactory(new PropertyValueFactory<>("id_user"));
-        penggunaName.setCellValueFactory(new PropertyValueFactory<>("name_user"));
-        penggunaRole.setCellValueFactory(new PropertyValueFactory<>("role_user"));
-        penggunaUsername.setCellValueFactory(new PropertyValueFactory<>("username_user"));
-        penggunaEmail.setCellValueFactory(new PropertyValueFactory<>("email_user"));
-        penggunaAction.setCellValueFactory(new PropertyValueFactory<>("button_box"));
-        fetchPenggunaTable();
-
-        logoutButton.setOnAction(event -> {
-            UserSession.getInstance().clearSession();
-            try {
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
-            String css = getClass().getResource("css/application.css").toExternalForm();
-            Font montserratNormal = Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
-            Stage newStage = new Stage();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(css);
-            newStage.setFullScreen(true);
-            newStage.setScene(scene);
-            Stage oldStage = (Stage) logoutButton.getScene().getWindow();
-            oldStage.close();
-            newStage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    private void fetchPenggunaTable() {
-        try (Connection connection = DB.getConnection()) {
-            String query =
-                "SELECT * FROM pengguna U ";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    while (resultSet.next()) {
-                        int id_user = resultSet.getInt("id_user");
-                        String name_user = resultSet.getString("name_user");
-                        int role_user = resultSet.getInt("role_user");
-                        String username_user = resultSet.getString("username_user");
-                        String email_user = resultSet.getString("email_user");
-        
-                        UserTable userData = new UserTable(id_user, name_user, role_user, username_user, email_user);
-                        penggunaTable.getItems().add(userData);
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }
