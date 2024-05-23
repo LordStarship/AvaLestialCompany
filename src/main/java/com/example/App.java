@@ -22,6 +22,7 @@ public class App extends Application {
             stage.setFullScreen(true);
             stage.setScene(scene);
             stage.show();
+            System.out.println(System.getProperty("java.class.path"));
         } 
         catch (Exception e) {
             e.printStackTrace();

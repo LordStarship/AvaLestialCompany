@@ -6,9 +6,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import com.example.Connections.*;
+import com.example.Table.GameTable;
 import com.example.Table.LaporanTable;
 import com.example.Table.TransaksiTable;
 
@@ -26,7 +32,21 @@ public class TransaksiController {
     @FXML
     private Button transaksiPengguna;
     @FXML
+    private Button logoutButton;
+    @FXML
     private TableView<TransaksiTable> transaksiTable;
+    @FXML
+    private TableColumn<TransaksiTable, Integer> transaksiID;
+    @FXML
+    private TableColumn<TransaksiTable, Date> transaksiDate;
+    @FXML
+    private TableColumn<TransaksiTable, String> transaksiName;
+    @FXML
+    private TableColumn<TransaksiTable, String> transaksiAmount;
+    @FXML
+    private TableColumn<TransaksiTable, String> transaksiNote;
+    @FXML
+    private TableColumn<TransaksiTable, HBox> transaksiAction;
 
     @FXML
     private void buttonTransaksiLaporan(ActionEvent event) throws Exception {
@@ -84,27 +104,58 @@ public class TransaksiController {
     }
 
     public void initialize() {
+        transaksiID.setCellValueFactory(new PropertyValueFactory<>("id_transaksi"));
+        transaksiDate.setCellValueFactory(new PropertyValueFactory<>("date_transaksi"));
+        transaksiName.setCellValueFactory(new PropertyValueFactory<>("name_barang"));
+        transaksiAmount.setCellValueFactory(new PropertyValueFactory<>("amount_transaksi"));
+        transaksiNote.setCellValueFactory(new PropertyValueFactory<>("note_transaksi"));
+        transaksiAction.setCellValueFactory(new PropertyValueFactory<>("button_box"));
         fetchTransaksiData();
+
+        logoutButton.setOnAction(event -> {
+            UserSession.getInstance().clearSession();
+            try {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
+            String css = getClass().getResource("css/application.css").toExternalForm();
+            Font montserratNormal = Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
+            Stage newStage = new Stage();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(css);
+            newStage.setFullScreen(true);
+            newStage.setScene(scene);
+            Stage oldStage = (Stage) logoutButton.getScene().getWindow();
+            oldStage.close();
+            newStage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void fetchTransaksiData() {
         try (Connection connection = DB.getConnection()) {
             String query =
                 "SELECT T.id_transaksi, T.date_transaksi, B.name_barang, T.amount_transaksi, T.note_transaksi " +
-                "FROM transaksi Table T " +
+                "FROM transaksi T " +
                 "JOIN barang B ON T.id_barang = B.id_barang " +
-                "JOIN game G ON B.id_game = G.id_game";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query);
-                 ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    int id_transaksi = resultSet.getInt("id_transaksi");
-                    Date date_transaksi = resultSet.getDate("date_transaksi");
-                    String name_barang = resultSet.getString("name_barang");
-                    String amount_transaksi = resultSet.getString("amount_transaksi");
-                    String note_transaksi = resultSet.getString("note_transaksi");
-
-                    TransaksiTable transaksiData = new TransaksiTable(id_transaksi, date_transaksi, name_barang, amount_transaksi, note_transaksi);
-                    transaksiTable.getItems().add(transaksiData);
+                "JOIN game G ON B.id_game = G.id_game " + 
+                "WHERE T.id_user = ?";
+            int userID = UserSession.getInstance().getLoggedInID();
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                preparedStatement.setInt(1, userID);
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int id_transaksi = resultSet.getInt("id_transaksi");
+                        Date date_transaksi = resultSet.getDate("date_transaksi");
+                        String name_barang = resultSet.getString("name_barang");
+                        String amount_transaksi = resultSet.getString("amount_transaksi");
+                        String note_transaksi = resultSet.getString("note_transaksi");
+    
+                        TransaksiTable transaksiData = new TransaksiTable(id_transaksi, date_transaksi, name_barang, amount_transaksi, note_transaksi);
+                        transaksiTable.getItems().add(transaksiData);
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
