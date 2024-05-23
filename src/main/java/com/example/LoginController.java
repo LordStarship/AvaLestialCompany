@@ -1,6 +1,12 @@
 package com.example;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
 import com.example.Connections.*;
+import com.example.Table.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -142,22 +148,43 @@ public class LoginController {
             } else {
                 try {
                     DB databaseUser = new DB();
+                    Connection connection = DB.getConnection();
                     boolean isAuthenticated = databaseUser.authenticateUser(username, hashedPassword);
                     if(isAuthenticated) {
-                        Parent root = FXMLLoader.load(getClass().getResource("fxml/laporan.fxml"));
-                        String css = getClass().getResource("css/application.css").toExternalForm();
-                        Font interNormal = Font.loadFont(getClass().getResource("fonts/Inter-VariableFont_slnt,wght.ttf").toExternalForm(), 24);
-                        Stage newStage = new Stage();
-                        Image icon = new Image(getClass().getResourceAsStream("img/app-logo.png"));
-                        newStage.getIcons().add(icon);
-                        Scene scene = new Scene(root);
-                        scene.getStylesheets().add(css);
-                        newStage.setTitle("Ava Lestial Company");
-                        newStage.setScene(scene);
-                        Stage oldStage = (Stage) loginButton.getScene().getWindow();
-                        oldStage.close();
-                        newStage.show();
-                    }
+                        String query =
+                        "SELECT * FROM pengguna U " +
+                        "WHERE U.username_user = ?";
+                        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                            preparedStatement.setString(1, username);
+                            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                                while (resultSet.next()) {
+                                    int id_user = resultSet.getInt("id_user");
+                                    String name_user = resultSet.getString("name_user");
+                                    int role_user = resultSet.getInt("role_user");
+                                    String username_user = resultSet.getString("username_user");
+                                    String email_user = resultSet.getString("email_user");
+                                    
+                                    UserTable userData = new UserTable(id_user, name_user, role_user, username_user, email_user);
+                                    UserSession.getInstance().setLoggedInUser(userData);
+                                    
+                                    Parent root = FXMLLoader.load(getClass().getResource("fxml/data_game.fxml"));
+                                    String css = getClass().getResource("css/application.css").toExternalForm();
+                                    Font interNormal = Font.loadFont(getClass().getResource("fonts/Inter-VariableFont_slnt_wght.ttf").toExternalForm(), 24);
+                                    Stage newStage = new Stage();
+                                    Scene scene = new Scene(root);
+                                    scene.getStylesheets().add(css);
+                                    newStage.setScene(scene);
+                                    Stage oldStage = (Stage) loginButton.getScene().getWindow();
+                                    oldStage.close();
+                                    newStage.show();
+                                }
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        } catch (SQLException e) {
+                        e.printStackTrace();
+                        }
+                    } 
                     else {
                         wrongLogin.show(loginEmailUsername, 793, 200); 
                     }

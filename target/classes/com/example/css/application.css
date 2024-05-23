@@ -151,10 +151,6 @@
 
 /* navbar */
 
-.laporan-pane {
-    -fx-font-family: "Inter";
-}
-
 .laporan-navbar-pane {
     -fx-border-color: black;
     -fx-border-width: 1;
@@ -163,7 +159,7 @@
 }
 
 .laporan-navbar {
-    -fx-border-width: 1 0 0 0;
+    -fx-border-width: 1 0 1 0;
     -fx-background-radius: 0;
     -fx-border-color: black;
     -fx-scale-on-press: false;
@@ -172,13 +168,32 @@
 }
 
 .laporan-table {
-    -fx-font-size: 1.25em;
     -fx-font-family: "Inter";
 }
 
 .laporan-table-col {
+    -fx-font-size: 1.25em;
+    -fx-font-family: "Inter";
+    -fx-alignment: CENTER;  
+}
+
+.laporan-button {
+    -fx-font-size: 1.25em;
+    -fx-font-weight: 700;
+    -fx-text-fill: white;
+    -fx-background-color: #FF0000;
+    -fx-border-radius: 50; 
+    -fx-background-radius: 50; 
     -fx-font-family: "Inter";
 }
 
+.add-button {
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-background-color: #64ED85;
+    -fx-border-radius: 50; 
+    -fx-background-radius: 50; 
+    -fx-font-family: "Inter";
+}
 
 

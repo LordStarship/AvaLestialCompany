@@ -23,31 +23,40 @@
                   <Insets bottom="20.0" top="20.0" />
                </VBox.margin>
             </ImageView>
-            <Button fx:id="penggunaLaporan" onAction="#buttonPenggunaLaporan" alignment="CENTER" mnemonicParsing="false" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Laporan">
+            <Button fx:id="penggunaLaporan" alignment="CENTER" mnemonicParsing="false" onAction="#buttonPenggunaLaporan" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Laporan">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="penggunaTransaksi" onAction="#buttonPenggunaTransaksi" alignment="CENTER" layoutX="10.0" layoutY="290.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Transaksi">
+            <Button fx:id="penggunaTransaksi" alignment="CENTER" layoutX="10.0" layoutY="290.0" mnemonicParsing="false" onAction="#buttonPenggunaTransaksi" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Transaksi">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="penggunaBarang" onAction="#buttonPenggunaBarang" alignment="CENTER" layoutX="10.0" layoutY="333.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Barang">
+            <Button fx:id="penggunaBarang" alignment="CENTER" layoutX="10.0" layoutY="333.0" mnemonicParsing="false" onAction="#buttonPenggunaBarang" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Barang">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="penggunaDataGame" onAction="#buttonPenggunaDataGame" alignment="CENTER" layoutX="10.0" layoutY="376.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Data Game">
+            <Button fx:id="penggunaDataGame" alignment="CENTER" layoutX="10.0" layoutY="376.0" mnemonicParsing="false" onAction="#buttonPenggunaDataGame" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Data Game">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="penggunaPengguna" onAction="#buttonPenggunaPengguna" alignment="CENTER" layoutX="10.0" layoutY="384.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Pengguna">
+            <Button fx:id="penggunaPengguna" alignment="CENTER" layoutX="10.0" layoutY="384.0" mnemonicParsing="false" onAction="#buttonPenggunaPengguna" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Pengguna">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="laporan-button" text="Logout">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </VBox>
       <VBox prefHeight="600.0" prefWidth="800.0">
@@ -59,7 +68,7 @@
                         <Font size="32.0" />
                      </font>
                   </Label>
-                  <Button fx:id="penggunaAdd" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Add">
+                  <Button fx:id="penggunaAdd" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Add" styleClass="add-button">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -75,13 +84,13 @@
                   <Insets left="30.0" />
                </padding>
             </HBox>
-            <TableView fx:id="laporanTable" prefHeight="500.0" prefWidth="755.0" styleClass="laporan-table">
+            <TableView fx:id="penggunaTable" prefHeight="500.0" prefWidth="755.0" styleClass="laporan-table">
               <columns>
-                <TableColumn fx:id="penggunaID" prefWidth="75.0" reorderable="false" styleClass="laporan-table-col" text="ID" />
+                <TableColumn fx:id="penggunaID" prefWidth="20.0" reorderable="false" styleClass="laporan-table-col" text="ID" />
                 <TableColumn fx:id="penggunaName" prefWidth="75.0" reorderable="false" styleClass="laporan-table-col" text="Name" />
+                  <TableColumn fx:id="penggunaRole" prefWidth="30.0" reorderable="false" styleClass="laporan-table-col" text="Role" />
                   <TableColumn fx:id="penggunaUsername" prefWidth="75.0" reorderable="false" styleClass="laporan-table-col" text="Username" />
-                  <TableColumn fx:id="penggunaEmail" prefWidth="75.0" reorderable="false" styleClass="laporan-table-col" text="Email" />
-                  <TableColumn fx:id="penggunaRole" prefWidth="75.0" reorderable="false" styleClass="laporan-table-col" text="Role" />
+                  <TableColumn fx:id="penggunaEmail" prefWidth="125.0" reorderable="false" styleClass="laporan-table-col" text="Email" />
                   <TableColumn fx:id="penggunaAction" prefWidth="75.0" reorderable="false" styleClass="laporan-table-col" text="Action" />
               </columns>
                <columnResizePolicy>
