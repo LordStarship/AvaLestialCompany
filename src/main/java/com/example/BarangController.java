@@ -3,16 +3,20 @@ package com.example;
 import java.sql.*;
 import com.example.Connections.DB;
 import com.example.Connections.UserSession;
+import com.example.Form.BarangForm;
 import com.example.Table.BarangTable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -157,6 +161,9 @@ public class BarangController {
     
                         BarangTable barangData = new BarangTable(id_barang, name_barang, email_barang, name_game, variation_game, type_game, amount_barang);
                         barangTable.getItems().add(barangData);
+                        
+                        BarangForm barangForm = new BarangForm();
+                        barangForm.initData(barangData.getId_barang());
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

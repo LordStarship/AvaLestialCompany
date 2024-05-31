@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import com.example.Connections.*;
 import com.example.Table.*;
 import javafx.fxml.FXML;
@@ -171,6 +170,8 @@ public class LoginController {
                                     String css = getClass().getResource("css/application.css").toExternalForm();
                                     Font interNormal = Font.loadFont(getClass().getResource("fonts/Inter-VariableFont_slnt_wght.ttf").toExternalForm(), 24);
                                     Stage newStage = new Stage();
+                                    newStage.setTitle("Ava Lestial Company");
+                                    newStage.getIcons().add(new Image(LoginController.class.getResourceAsStream("/com/example/img/app-logo.png")));
                                     Scene scene = new Scene(root);
                                     scene.getStylesheets().add(css);
                                     newStage.setScene(scene);

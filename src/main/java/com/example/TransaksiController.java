@@ -9,13 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import com.example.Connections.*;
-import com.example.Table.GameTable;
-import com.example.Table.LaporanTable;
 import com.example.Table.TransaksiTable;
 
 import java.sql.*;

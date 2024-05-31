@@ -101,7 +101,7 @@ public class LaporanController {
     }
 
     public void initialize() {
-        laporanID.setCellValueFactory(new PropertyValueFactory<>("id_laporan"));
+        laporanID.setCellValueFactory(new PropertyValueFactory<>("id_transaksi"));
         laporanDate.setCellValueFactory(new PropertyValueFactory<>("date_transaksi"));
         laporanIDAccount.setCellValueFactory(new PropertyValueFactory<>("id_barang"));
         laporanGame.setCellValueFactory(new PropertyValueFactory<>("name_game"));
@@ -131,24 +131,23 @@ public class LaporanController {
     private void fetchLaporanData() {
         try (Connection connection = DB.getConnection()) {
             String query =
-                "SELECT L.id_laporan, T.date_transaksi, B.id_barang, G.name_game, T.amount_transaksi " +
-                "FROM laporan L " +
-                "JOIN transaksi T ON L.id_transaksi = T.id_transaksi " +
+                "SELECT T.id_transaksi, T.date_transaksi, B.id_barang, G.name_game, T.amount_transaksi " +
+                "FROM Transaksi T " +
                 "JOIN barang B ON T.id_barang = B.id_barang " +
                 "JOIN game G ON B.id_game = G.id_game " +
-                "WHERE L.id_user = ?";
+                "WHERE T.id_user = ?";
             int userID = UserSession.getInstance().getLoggedInID();
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 preparedStatement.setInt(1, userID);
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     while (resultSet.next()) {
-                        int id_laporan = resultSet.getInt("id_laporan");
+                        int id_transaksi = resultSet.getInt("id_transaksi");
                         Date date_transaksi = resultSet.getDate("date_transaksi");
                         int id_barang = resultSet.getInt("id_barang");
                         String name_game = resultSet.getString("name_game");
                         String amount_transaksi = resultSet.getString("amount_transaksi");
                         
-                        LaporanTable laporanData = new LaporanTable(id_laporan, date_transaksi, id_barang, name_game, amount_transaksi);
+                        LaporanTable laporanData = new LaporanTable(id_transaksi, date_transaksi, id_barang, name_game, amount_transaksi);
                         laporanTable.getItems().add(laporanData);
                     }
                 } catch (SQLException e) {

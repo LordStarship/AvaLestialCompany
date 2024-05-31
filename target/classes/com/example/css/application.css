@@ -196,4 +196,33 @@
     -fx-font-family: "Inter";
 }
 
+/* edit */
+
+.edit-frame {
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+}
+
+.edit-text {
+    -fx-font-weight: bold;
+    -fx-text-fill: #3A5866;
+}
+
+.edit-field {
+    -fx-background-color: transparent;
+    -fx-border-color: #3A5866;
+    -fx-border-radius: 50; 
+}
+
+.edit-button {
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-background-color: #64ED85;
+    -fx-border-radius: 50; 
+    -fx-background-radius: 50; 
+    -fx-font-family: "Inter";
+}
+
+
 

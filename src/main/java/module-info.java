@@ -6,4 +6,5 @@ module com.example {
     opens com.example to javafx.fxml;
     opens com.example.Table to javafx.base;
     exports com.example;
+    exports com.example.Form to javafx.fxml;
 }

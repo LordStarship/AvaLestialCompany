@@ -2,11 +2,20 @@ package com.example.Table;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class BarangTable {
     private SimpleIntegerProperty id_barang = new SimpleIntegerProperty();
@@ -26,7 +35,7 @@ public class BarangTable {
         this.variation_game = new SimpleStringProperty(variation_game);
         this.type_game = new SimpleStringProperty(type_game);
         this.amount_barang = new SimpleStringProperty(amount_barang);
-
+        
         Image edit_icon = new Image(getClass().getResourceAsStream("/com/example/img/edit-icon.png"));
         ImageView edit_icon_view = new ImageView(edit_icon);
         edit_icon_view.setFitWidth(20);
@@ -34,6 +43,38 @@ public class BarangTable {
         Button edit_but = new Button();
         edit_but.setGraphic(edit_icon_view);
         edit_but.setStyle("-fx-background-color: #FFA800; -fx-border-width: 10;");
+        edit_but.setOnAction(event -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/fxml/edit_barang.fxml"));
+                String css = getClass().getResource("/com/example/css/application.css").toExternalForm();
+                Parent editRoot = fxmlLoader.load();
+
+                Stage editStage = new Stage();
+                editStage.initStyle(StageStyle.UNDECORATED);
+                editStage.initModality(Modality.APPLICATION_MODAL);
+
+                editStage.initOwner(edit_but.getScene().getWindow());
+
+                Scene scene = new Scene(editRoot);
+                
+                scene.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        if (((Node) mouseEvent.getTarget()).getScene() != scene) {
+                            editStage.close();
+                        }
+                    }
+                });
+
+                scene.getStylesheets().add(css);
+
+                editStage.setScene(scene);
+                editStage.show();
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+        });
+
 
         Image del_icon = new Image(getClass().getResourceAsStream("/com/example/img/delete-icon.png"));
         ImageView del_icon_view = new ImageView(del_icon);
