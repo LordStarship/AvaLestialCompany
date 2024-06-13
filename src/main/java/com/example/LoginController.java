@@ -122,8 +122,6 @@ public class LoginController {
         loginBoxFillTopFill.prefHeightProperty().bind(loginBoxFillTop.heightProperty());
         loginBoxFillTopFill.prefWidthProperty().bind(loginBoxFillTop.widthProperty().multiply(0.5));
 
-        loginBoxWrapperForgot.setAlignment(Pos.CENTER_RIGHT);
-
         loginBoxFillBottom.prefHeightProperty().bind(loginBoxFill.heightProperty().multiply(0.7));
         loginBoxFillBottom.prefWidthProperty().bind(loginBoxFill.widthProperty());
         
@@ -168,7 +166,7 @@ public class LoginController {
                                     
                                     Parent root = FXMLLoader.load(getClass().getResource("fxml/data_game.fxml"));
                                     String css = getClass().getResource("css/application.css").toExternalForm();
-                                    Font interNormal = Font.loadFont(getClass().getResource("fonts/Inter-VariableFont_slnt_wght.ttf").toExternalForm(), 24);
+                                    Font.loadFont(getClass().getResource("fonts/Inter-VariableFont_slnt_wght.ttf").toExternalForm(), 24);
                                     Stage newStage = new Stage();
                                     newStage.setTitle("Ava Lestial Company");
                                     newStage.getIcons().add(new Image(LoginController.class.getResourceAsStream("/com/example/img/app-logo.png")));

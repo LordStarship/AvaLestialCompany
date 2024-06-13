@@ -100,6 +100,6 @@
             </TextField>
          </children>
       </HBox>
-      <Button fx:id="barangOkEdit" mnemonicParsing="false" text="Ok"  styleClass="edit-button" />
+      <Button fx:id="barangOkEdit" onAction="#handleEditButtonAction" mnemonicParsing="false" text="Ok"  styleClass="edit-button" />
    </children>
 </VBox>

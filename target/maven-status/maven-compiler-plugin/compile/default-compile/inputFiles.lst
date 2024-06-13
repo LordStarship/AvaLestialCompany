@@ -4,9 +4,11 @@ d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\com\example\App.java
 d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\com\example\Table\BarangTable.java
 d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\com\example\Table\LaporanTable.java
 d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\com\example\TransaksiController.java
+d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\com\example\Form\DataGameForm.java
 d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\com\example\Connections\User.java
 d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\com\example\Connections\DB.java
 d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\module-info.java
+d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\com\example\Form\TransaksiForm.java
 d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\com\example\Form\BarangForm.java
 d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\com\example\PenggunaController.java
 d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\com\example\DataGameController.java
@@ -15,3 +17,4 @@ d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\com\example\Table\Ga
 d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\com\example\Connections\UserSession.java
 d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\com\example\Table\TransaksiTable.java
 d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\com\example\Table\UserTable.java
+d:\JavaFX\avalestialcompany\avalestialcompany\src\main\java\com\example\Form\PenggunaForm.java

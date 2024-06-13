@@ -113,7 +113,7 @@ public class LaporanController {
             try {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
             String css = getClass().getResource("css/application.css").toExternalForm();
-            Font montserratNormal = Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
+            Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(css);

@@ -11,8 +11,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import com.example.Connections.*;
+import com.example.Form.TransaksiForm;
 import com.example.Table.TransaksiTable;
 
 import java.sql.*;
@@ -30,6 +33,8 @@ public class TransaksiController {
     private Button transaksiPengguna;
     @FXML
     private Button logoutButton;
+    @FXML
+    private Button transaksiAdd;
     @FXML
     private TableView<TransaksiTable> transaksiTable;
     @FXML
@@ -114,7 +119,7 @@ public class TransaksiController {
             try {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
             String css = getClass().getResource("css/application.css").toExternalForm();
-            Font montserratNormal = Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
+            Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(css);
@@ -127,8 +132,38 @@ public class TransaksiController {
                 e.printStackTrace();
             }
         });
+
+        transaksiAdd.setOnAction(event -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/fxml/add_transaksi.fxml"));
+                String css = getClass().getResource("/com/example/css/application.css").toExternalForm();
+                Parent editRoot = fxmlLoader.load();
+
+                Stage editStage = new Stage();
+                editStage.initStyle(StageStyle.UNDECORATED);
+                editStage.initModality(Modality.APPLICATION_MODAL);
+                editStage.initOwner(transaksiAdd.getScene().getWindow());
+
+                Scene scene = new Scene(editRoot);
+
+                TransaksiForm transaksiForm = fxmlLoader.getController();
+                transaksiForm.setTransaksiController(this);
+
+                scene.getStylesheets().add(css);
+
+                editStage.setScene(scene);
+                editStage.show();
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+        });
     }
 
+    public void refreshTable() {
+        transaksiTable.getItems().clear();
+        fetchTransaksiData();
+    }
+    
     private void fetchTransaksiData() {
         try (Connection connection = DB.getConnection()) {
             String query =
@@ -150,6 +185,7 @@ public class TransaksiController {
     
                         TransaksiTable transaksiData = new TransaksiTable(id_transaksi, date_transaksi, name_barang, amount_transaksi, note_transaksi);
                         transaksiTable.getItems().add(transaksiData);
+                        transaksiData.setTransaksiController(this);
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

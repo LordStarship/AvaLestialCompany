@@ -8,17 +8,23 @@ import com.example.Connections.DB;
 import com.example.Connections.UserSession;
 import com.example.Table.GameTable;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import com.example.Form.DataGameForm;
 
 public class DataGameController {
     @FXML
@@ -33,6 +39,8 @@ public class DataGameController {
     private Button dataGamePengguna;
     @FXML
     private Button logoutButton;
+    @FXML
+    private Button dataGameAdd;
     @FXML
     private TableView<GameTable> dataGameTable;
     @FXML
@@ -114,7 +122,7 @@ public class DataGameController {
             try {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
             String css = getClass().getResource("css/application.css").toExternalForm();
-            Font montserratNormal = Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
+            Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(css);
@@ -127,6 +135,45 @@ public class DataGameController {
                 e.printStackTrace();
             }
         });
+
+        dataGameAdd.setOnAction(event -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/fxml/add_game.fxml"));
+                String css = getClass().getResource("/com/example/css/application.css").toExternalForm();
+                Parent editRoot = fxmlLoader.load();
+
+                Stage editStage = new Stage();
+                editStage.initStyle(StageStyle.UNDECORATED);
+                editStage.initModality(Modality.APPLICATION_MODAL);
+                editStage.initOwner(dataGameAdd.getScene().getWindow());
+
+                Scene scene = new Scene(editRoot);
+                
+                scene.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        if (((Node) mouseEvent.getTarget()).getScene() != scene) {
+                            editStage.close();
+                        }
+                    }
+                });
+
+                DataGameForm dataGameForm = fxmlLoader.getController();
+                dataGameForm.setDataGameController(this);
+
+                scene.getStylesheets().add(css);
+
+                editStage.setScene(scene);
+                editStage.show();
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+        });
+    }
+
+    public void refreshTable() {
+        dataGameTable.getItems().clear();
+        fetchDataGameTable();
     }
 
     private void fetchDataGameTable() {
@@ -147,6 +194,7 @@ public class DataGameController {
         
                         GameTable dataGameData = new GameTable(id_game, name_game, variation_game, type_game);
                         dataGameTable.getItems().add(dataGameData);
+                        dataGameData.setDataGameController(this);
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

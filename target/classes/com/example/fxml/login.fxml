@@ -71,9 +71,6 @@
                                                    </styleClass>
                                                 </PasswordField>
                                              </children>
-                                             <HBox fx:id="loginBoxWrapperForgot" styleClass="login-box-wrapper-forgot">
-                                                <Label fx:id="loginForgotPassword" styleClass="login-forgot-password" text="Forgot Password?" />
-                                             </HBox>
                                           </VBox>
                                        </children>
                                     </VBox>

@@ -1,17 +1,17 @@
 package com.example.Table;
 
+import com.example.BarangController;
+import com.example.Form.BarangForm;
+
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -26,6 +26,8 @@ public class BarangTable {
     private SimpleStringProperty type_game = new SimpleStringProperty();
     private SimpleStringProperty amount_barang = new SimpleStringProperty();
     private HBox button_box;
+    public static BarangTable currentInstance;
+    private BarangController barangController;
 
     public BarangTable(int id_barang, String name_barang, String email_barang, String name_game, String variation_game, String type_game, String amount_barang) {
         this.id_barang = new SimpleIntegerProperty(id_barang);
@@ -52,21 +54,14 @@ public class BarangTable {
                 Stage editStage = new Stage();
                 editStage.initStyle(StageStyle.UNDECORATED);
                 editStage.initModality(Modality.APPLICATION_MODAL);
-
                 editStage.initOwner(edit_but.getScene().getWindow());
-
                 Scene scene = new Scene(editRoot);
-                
-                scene.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        if (((Node) mouseEvent.getTarget()).getScene() != scene) {
-                            editStage.close();
-                        }
-                    }
-                });
 
                 scene.getStylesheets().add(css);
+
+                BarangForm controller = fxmlLoader.getController();
+                controller.setBarangTable(this);
+                controller.updateFields();
 
                 editStage.setScene(scene);
                 editStage.show();
@@ -83,10 +78,37 @@ public class BarangTable {
         Button del_but = new Button();
         del_but.setGraphic(del_icon_view);
         del_but.setStyle("-fx-background-color: #FF0000; -fx-border-width: 10;");
+        del_but.setOnAction(event -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/fxml/delete_barang.fxml"));
+                String css = getClass().getResource("/com/example/css/application.css").toExternalForm();
+                Parent deleteRoot = fxmlLoader.load();
+
+                Stage deleteStage = new Stage();
+                deleteStage.initStyle(StageStyle.UNDECORATED);
+                deleteStage.initModality(Modality.APPLICATION_MODAL);
+                deleteStage.initOwner(edit_but.getScene().getWindow());
+                Scene scene = new Scene(deleteRoot);
+
+                scene.getStylesheets().add(css);
+
+                BarangForm controller = fxmlLoader.getController();
+                controller.setBarangTable(this);
+
+                deleteStage.setScene(scene);
+                deleteStage.show();
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+        });
 
         this.button_box = new HBox(edit_but, del_but);
         this.button_box.setSpacing(10);
         this.button_box.setAlignment(Pos.CENTER);
+    }
+
+    public void setBarangController(BarangController barangController) {
+        this.barangController = barangController;
     }
 
     public int getId_barang() {
@@ -119,6 +141,10 @@ public class BarangTable {
 
     public HBox getButton_box() {
         return button_box;
+    }
+
+    public BarangController getBarangController() {
+        return this.barangController;
     }
 }
 

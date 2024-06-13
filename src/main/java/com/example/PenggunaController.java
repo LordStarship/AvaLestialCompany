@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.example.Connections.DB;
 import com.example.Connections.UserSession;
+import com.example.Form.PenggunaForm;
 import com.example.Table.UserTable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +19,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class PenggunaController {
     @FXML
@@ -33,6 +36,8 @@ public class PenggunaController {
     private Button penggunaPengguna;
     @FXML
     private Button logoutButton;
+    @FXML
+    private Button penggunaAdd;
     @FXML
     private TableView<UserTable> penggunaTable;
     @FXML
@@ -117,7 +122,7 @@ public class PenggunaController {
             try {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
             String css = getClass().getResource("css/application.css").toExternalForm();
-            Font montserratNormal = Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
+            Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(css);
@@ -130,6 +135,37 @@ public class PenggunaController {
                 e.printStackTrace();
             }
         });
+
+        penggunaAdd.setOnAction(event -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/fxml/add_pengguna.fxml"));
+                String css = getClass().getResource("/com/example/css/application.css").toExternalForm();
+                Parent editRoot = fxmlLoader.load();
+
+                Stage editStage = new Stage();
+                editStage.initStyle(StageStyle.UNDECORATED);
+                editStage.initModality(Modality.APPLICATION_MODAL);
+
+                editStage.initOwner(penggunaAdd.getScene().getWindow());
+
+                Scene scene = new Scene(editRoot);
+
+                scene.getStylesheets().add(css);
+
+                PenggunaForm penggunaForm = fxmlLoader.getController();
+                penggunaForm.setPenggunaController(this);
+
+                editStage.setScene(scene);
+                editStage.show();
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+        });
+    }
+
+    public void refreshTable() {
+        penggunaTable.getItems().clear();
+        fetchPenggunaTable();
     }
 
     private void fetchPenggunaTable() {
@@ -147,6 +183,7 @@ public class PenggunaController {
         
                         UserTable userData = new UserTable(id_user, name_user, role_user, username_user, email_user);
                         penggunaTable.getItems().add(userData);
+                        userData.setPenggunaController(this);
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

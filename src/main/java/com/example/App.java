@@ -17,7 +17,7 @@ public class App extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
             Scene scene = new Scene(root);
             String css = this.getClass().getResource("css/application.css").toExternalForm();
-            Font montserratNormal = Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
+            Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
             scene.getStylesheets().add(css);
             stage.setFullScreen(true);
             stage.setScene(scene);

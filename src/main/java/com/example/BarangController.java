@@ -6,20 +6,22 @@ import com.example.Connections.UserSession;
 import com.example.Form.BarangForm;
 import com.example.Table.BarangTable;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class BarangController {
     @FXML
@@ -34,6 +36,8 @@ public class BarangController {
     private Button barangPengguna;
     @FXML
     private Button logoutButton;
+    @FXML
+    private Button barangAdd;
     @FXML
     private TableView<BarangTable> barangTable;
     @FXML 
@@ -124,7 +128,7 @@ public class BarangController {
             try {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
             String css = getClass().getResource("css/application.css").toExternalForm();
-            Font montserratNormal = Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
+            Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
             Stage newStage = new Stage();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(css);
@@ -137,9 +141,44 @@ public class BarangController {
                 e.printStackTrace();
             }
         });
+
+        barangAdd.setOnAction(event -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/fxml/add_barang.fxml"));
+                String css = getClass().getResource("/com/example/css/application.css").toExternalForm();
+                Parent editRoot = fxmlLoader.load();
+                Stage editStage = new Stage();
+                editStage.initStyle(StageStyle.UNDECORATED);
+                editStage.initModality(Modality.APPLICATION_MODAL);
+                editStage.initOwner(barangAdd.getScene().getWindow());
+                Scene scene = new Scene(editRoot);
+                scene.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        if (((Node) mouseEvent.getTarget()).getScene() != scene) {
+                            editStage.close();
+                        }
+                    }
+                });
+
+                BarangForm barangForm = fxmlLoader.getController();
+                barangForm.setBarangController(this);
+
+                scene.getStylesheets().add(css);
+                editStage.setScene(scene);
+                editStage.show();
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+        });
     }
 
-    private void fetchBarangData() {
+    public void refreshTable() {
+        barangTable.getItems().clear();
+        fetchBarangData();
+    }
+
+    public void fetchBarangData() {
         try (Connection connection = DB.getConnection()) {
             String query =
                 "SELECT B.id_barang, B.name_barang, B.email_barang, G.name_game, G.variation_game, G.type_game, B.amount_barang " +
@@ -161,9 +200,7 @@ public class BarangController {
     
                         BarangTable barangData = new BarangTable(id_barang, name_barang, email_barang, name_game, variation_game, type_game, amount_barang);
                         barangTable.getItems().add(barangData);
-                        
-                        BarangForm barangForm = new BarangForm();
-                        barangForm.initData(barangData.getId_barang());
+                        barangData.setBarangController(this);
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

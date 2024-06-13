@@ -187,6 +187,15 @@
     -fx-font-family: "Inter";
 }
 
+.delete-button {
+    -fx-font-weight: 700;
+    -fx-text-fill: white;
+    -fx-background-color: #FF0000;
+    -fx-border-radius: 50; 
+    -fx-background-radius: 50; 
+    -fx-font-family: "Inter";
+}
+
 .add-button {
     -fx-font-weight: bold;
     -fx-text-fill: black;
