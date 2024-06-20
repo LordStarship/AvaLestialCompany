@@ -15,7 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -130,6 +129,14 @@ public class LoginController {
         loginButton.prefHeightProperty().bind(loginBoxFillBottom.heightProperty().multiply(0.3));
         loginButton.prefWidthProperty().bind(loginBoxFillBottom.widthProperty().multiply(0.3));
 
+        loginEmailUsername.setOnAction(event -> {
+            loginButton.fire();
+        });
+        
+        loginPassword.setOnAction(event -> {
+            loginButton.fire();
+        });
+
         loginButton.setOnAction(event -> {
             String username = loginEmailUsername.getText();
             String password = loginPassword.getText();
@@ -169,7 +176,6 @@ public class LoginController {
                                     Font.loadFont(getClass().getResource("fonts/Inter-VariableFont_slnt_wght.ttf").toExternalForm(), 24);
                                     Stage newStage = new Stage();
                                     newStage.setTitle("Ava Lestial Company");
-                                    newStage.getIcons().add(new Image(LoginController.class.getResourceAsStream("/com/example/img/app-logo.png")));
                                     Scene scene = new Scene(root);
                                     scene.getStylesheets().add(css);
                                     newStage.setScene(scene);
@@ -193,6 +199,7 @@ public class LoginController {
             }
         });
     }
+
     private Popup createPopup(String message) {
         Popup popup = new Popup();
         Label label = new Label(message);

@@ -18,20 +18,6 @@
       </Text>
       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="100.0">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Text>
-            <DatePicker fx:id="transaksiDateAdd">
-               <HBox.margin>
-                  <Insets left="75.0" />
-               </HBox.margin>
-            </DatePicker>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0">
-         <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Barang" wrappingWidth="100.0">
                <font>
                   <Font size="16.0" />
@@ -72,6 +58,6 @@
             </TextField>
          </children>
       </HBox>
-      <Button fx:id="transaksiOkAdd" mnemonicParsing="false" styleClass="edit-button" text="Ok" />
+      <Button fx:id="transaksiOkAdd" onAction="#handleOkButtonAction" mnemonicParsing="false" styleClass="edit-button" text="Ok" />
    </children>
 </VBox>

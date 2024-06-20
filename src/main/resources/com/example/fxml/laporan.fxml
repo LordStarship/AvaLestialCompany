@@ -31,29 +31,29 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="laporanTransaksi" alignment="CENTER" layoutX="10.0" layoutY="290.0" mnemonicParsing="false" onAction="#buttonLaporanTransaksi" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Transaksi">
+            <Button fx:id="laporanTransaksi" alignment="CENTER" layoutX="10.0" layoutY="290.0" mnemonicParsing="false" onAction="#buttonLaporanTransaksi" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar-bot" text="Transaksi">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="laporanBarang" alignment="CENTER" layoutX="10.0" layoutY="333.0" mnemonicParsing="false" onAction="#buttonLaporanBarang" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Barang">
+            <Button fx:id="laporanBarang" alignment="CENTER" layoutX="10.0" layoutY="333.0" mnemonicParsing="false" onAction="#buttonLaporanBarang" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar-bot" text="Barang">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="laporanDataGame" alignment="CENTER" layoutX="10.0" layoutY="376.0" mnemonicParsing="false" onAction="#buttonLaporanDataGame" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Data Game">
+            <Button fx:id="laporanDataGame" alignment="CENTER" layoutX="10.0" layoutY="376.0" mnemonicParsing="false" onAction="#buttonLaporanDataGame" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar-bot" text="Data Game">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="laporanPengguna" alignment="CENTER" layoutX="10.0" layoutY="384.0" mnemonicParsing="false" onAction="#buttonLaporanPengguna" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Pengguna">
+            <Button fx:id="laporanPengguna" alignment="CENTER" layoutX="10.0" layoutY="384.0" mnemonicParsing="false" onAction="#buttonLaporanPengguna" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar-bot" text="Pengguna">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="laporan-button" text="Logout">
+                  <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="laporan-button laporan-navbar-bot" text="Logout">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -78,8 +78,7 @@
                            <children>
                               <MenuButton fx:id="laporanGameDropdown" mnemonicParsing="false" text="Genshin Impact">
                                 <items>
-                                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                                  <MenuItem mnemonicParsing="false" text="Action 2" />
+                                  <MenuItem fx:id="laporanGameDropdownItem" mnemonicParsing="false" />
                                 </items>
                                  <font>
                                     <Font size="16.0" />
@@ -88,8 +87,7 @@
                               <Pane prefHeight="100.0" prefWidth="89.0" />
                               <MenuButton fx:id="laporanDateDropdown" layoutX="106.0" layoutY="48.0" mnemonicParsing="false" text="Maret">
                                  <items>
-                                    <MenuItem mnemonicParsing="false" text="Action 1" />
-                                    <MenuItem mnemonicParsing="false" text="Action 2" />
+                                    <MenuItem fx:id="laporanDateDropdownItem" mnemonicParsing="false" />
                                  </items>
                                  <font>
                                     <Font size="16.0" />

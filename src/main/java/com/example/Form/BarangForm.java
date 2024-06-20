@@ -69,33 +69,6 @@ public class BarangForm {
         this.barangTable = barangTable;
     }
     
-    // public void initialize() {
-    //     addFocusListener();
-    // }
-
-    // public Stage getStage() {
-    //     if (barangOkAdd != null && barangOkAdd.getScene() != null) {
-    //         return (Stage) barangOkAdd.getScene().getWindow();
-    //     } else if (barangOkEdit != null && barangOkEdit.getScene() != null) {
-    //         return (Stage) barangOkEdit.getScene().getWindow();
-    //     } else if (barangOkDelete != null && barangOkDelete.getScene() != null) {
-    //         return (Stage) barangOkDelete.getScene().getWindow();
-    //     } else {
-    //         return null;
-    //     }
-    // }
-
-    // public void addFocusListener() {
-    //     Stage stage = getStage();
-    //     if (stage != null) {
-    //         stage.focusedProperty().addListener((observable, oldValue, newValue) -> {
-    //             if (!newValue) {
-    //                 stage.close();
-    //             }
-    //         });
-    //     }
-    // } 
-
     public void updateFields() {
         barangNameEdit.setText(barangTable.getName_barang());
         barangEmailEdit.setText(barangTable.getEmail_barang());
@@ -258,7 +231,7 @@ public class BarangForm {
                     System.out.println(e.getMessage());
                 }
             } else {
-                System.out.println("Game details not found in game table. Insert operation skipped.");
+                System.out.println("Game details not found in game table. Update operation skipped." + rs);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

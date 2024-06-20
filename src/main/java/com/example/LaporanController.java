@@ -1,13 +1,19 @@
 package com.example;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -44,6 +50,14 @@ public class LaporanController {
     private TableColumn<LaporanTable, String> laporanGame;
     @FXML
     private TableColumn<LaporanTable, String> laporanAmount;
+    @FXML
+    private MenuButton laporanGameDropdown;
+    @FXML
+    private MenuItem laporanGameDropdownItem;
+    @FXML
+    private MenuButton laporanDateDropdown;
+    @FXML
+    private MenuItem laporanDateDropdownItem;
 
     @FXML
     private void buttonLaporanLaporan(ActionEvent event) throws Exception {
@@ -100,7 +114,21 @@ public class LaporanController {
         stage.show();
     }
 
+    private String selectedGame;
+    private String selectedDate;
+
+
     public void initialize() {
+        int id_user = UserSession.getInstance().getLoggedInID();
+        if(id_user != 2) {
+            laporanPengguna.setVisible(false);
+        }
+
+        laporanGameDropdown.setText("Game");
+        laporanDateDropdown.setText("Date");
+        populateGameDropdown();
+        populateDateDropdown();
+
         laporanID.setCellValueFactory(new PropertyValueFactory<>("id_transaksi"));
         laporanDate.setCellValueFactory(new PropertyValueFactory<>("date_transaksi"));
         laporanIDAccount.setCellValueFactory(new PropertyValueFactory<>("id_barang"));
@@ -128,6 +156,52 @@ public class LaporanController {
         });
     }
 
+    private void populateGameDropdown() {
+        try (Connection conn = DB.getConnection()) {
+            int id_user = UserSession.getInstance().getLoggedInID();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT DISTINCT name_game FROM game WHERE id_user = " + id_user);
+            List<String> gameNames = new ArrayList<>();
+            while (rs.next()) {
+                gameNames.add(rs.getString("name_game"));
+            }
+            createGameNameMenuItems(gameNames);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createGameNameMenuItems(List<String> gameNames) {
+        laporanGameDropdown.getItems().clear();
+        for (String gameName : gameNames) {
+            MenuItem menuItem = new MenuItem(gameName);
+            menuItem.setOnAction(event -> {
+                laporanGameDropdown.setText(menuItem.getText());
+                selectedGame = menuItem.getText();
+                fetchLaporanData();
+            });
+            laporanGameDropdown.getItems().add(menuItem);
+        }
+    }
+
+    private void populateDateDropdown() {
+        List<String> months = Arrays.asList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+        createMonthMenuItems(months);
+    }
+
+    private void createMonthMenuItems(List<String> months) {
+        laporanDateDropdown.getItems().clear();
+        for (String month : months) {
+            MenuItem menuItem = new MenuItem(month);
+            menuItem.setOnAction(event -> {
+                laporanDateDropdown.setText(menuItem.getText());
+                selectedDate = menuItem.getText();
+                fetchLaporanData();
+            });
+            laporanDateDropdown.getItems().add(menuItem);
+        }
+    }
+
     private void fetchLaporanData() {
         try (Connection connection = DB.getConnection()) {
             String query =
@@ -137,9 +211,24 @@ public class LaporanController {
                 "JOIN game G ON B.id_game = G.id_game " +
                 "WHERE T.id_user = ?";
             int userID = UserSession.getInstance().getLoggedInID();
+            List<String> params = new ArrayList<>();
+            params.add(String.valueOf(userID));
+            
+            if (selectedGame != null && !selectedGame.isEmpty()) {
+                query += " AND G.name_game =? ";
+                params.add(selectedGame);
+            }
+            if (selectedDate != null && !selectedDate.isEmpty()) {
+                query += " AND MONTHNAME(T.date_transaksi) =? ";
+                params.add(selectedDate);
+            }
+            
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                preparedStatement.setInt(1, userID);
+                for (int i = 0; i < params.size(); i++) {
+                    preparedStatement.setObject(i + 1, params.get(i));
+                }
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    laporanTable.getItems().clear();
                     while (resultSet.next()) {
                         int id_transaksi = resultSet.getInt("id_transaksi");
                         Date date_transaksi = resultSet.getDate("date_transaksi");

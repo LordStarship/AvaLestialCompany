@@ -130,13 +130,12 @@ public class PenggunaForm {
         }
 
     public void insertData(String name_pengguna, int role_pengguna, String username_pengguna, String email_pengguna) {
-        String query1 = "SELECT * FROM pengguna WHERE name_user = ? AND role_user = ? AND username_user = ? AND email_user = ?";
+        String query1 = "SELECT * FROM pengguna WHERE name_user = ? OR (username_user = ? OR email_user = ?)";
 
         try (PreparedStatement checkStmt = conn.prepareStatement(query1)) {
             checkStmt.setString(1, name_pengguna);
-            checkStmt.setInt(2, role_pengguna);
-            checkStmt.setString(3, username_pengguna);
-            checkStmt.setString(4, email_pengguna);
+            checkStmt.setString(2, username_pengguna);
+            checkStmt.setString(3, email_pengguna);
 
             ResultSet rs = checkStmt.executeQuery();
             if (!rs.next()) {

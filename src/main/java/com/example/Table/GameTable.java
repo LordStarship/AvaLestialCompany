@@ -78,7 +78,6 @@ public class GameTable {
                 Parent deleteRoot = fxmlLoader.load();
 
                 Stage deleteStage = new Stage();
-                deleteStage.initStyle(StageStyle.UNDECORATED);
                 deleteStage.initModality(Modality.APPLICATION_MODAL);
                 deleteStage.initOwner(edit_but.getScene().getWindow());
                 Scene scene = new Scene(deleteRoot);

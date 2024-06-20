@@ -23,7 +23,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import com.example.Form.DataGameForm;
 
 public class DataGameController {
@@ -110,6 +109,11 @@ public class DataGameController {
     }
 
     public void initialize() {
+        int id_user = UserSession.getInstance().getLoggedInID();
+        if(id_user != 2) {
+            dataGamePengguna.setVisible(false);
+        }
+
         dataGameID.setCellValueFactory(new PropertyValueFactory<>("id_game"));
         dataGameGame.setCellValueFactory(new PropertyValueFactory<>("name_game"));
         dataGameVariation.setCellValueFactory(new PropertyValueFactory<>("variation_game"));
@@ -143,7 +147,6 @@ public class DataGameController {
                 Parent editRoot = fxmlLoader.load();
 
                 Stage editStage = new Stage();
-                editStage.initStyle(StageStyle.UNDECORATED);
                 editStage.initModality(Modality.APPLICATION_MODAL);
                 editStage.initOwner(dataGameAdd.getScene().getWindow());
 

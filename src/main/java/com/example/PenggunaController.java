@@ -21,7 +21,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class PenggunaController {
     @FXML
@@ -143,7 +142,6 @@ public class PenggunaController {
                 Parent editRoot = fxmlLoader.load();
 
                 Stage editStage = new Stage();
-                editStage.initStyle(StageStyle.UNDECORATED);
                 editStage.initModality(Modality.APPLICATION_MODAL);
 
                 editStage.initOwner(penggunaAdd.getScene().getWindow());

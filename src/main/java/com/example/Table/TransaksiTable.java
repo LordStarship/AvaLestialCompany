@@ -5,6 +5,7 @@ import com.example.TransaksiController;
 import com.example.Form.TransaksiForm;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -21,18 +22,20 @@ public class TransaksiTable {
     private SimpleIntegerProperty id_transaksi = new SimpleIntegerProperty();
     private Date date_transaksi;
     private SimpleStringProperty name_barang = new SimpleStringProperty();
-    private SimpleStringProperty amount_transaksi = new SimpleStringProperty();
+    private SimpleIntegerProperty amount_transaksi = new SimpleIntegerProperty();
     private SimpleStringProperty note_transaksi = new SimpleStringProperty(); 
+    private SimpleStringProperty formatted_amount = new SimpleStringProperty();
     private HBox button_box;
     public static TransaksiTable currentInstance;
     private TransaksiController transaksiController;
         
-    public TransaksiTable(int id_transaksi, Date date_transaksi, String name_barang, String amount_transaksi, String note_transaksi) {
+    public TransaksiTable(int id_transaksi, Date date_transaksi, String name_barang, int amount_transaksi, String note_transaksi) {
         this.id_transaksi = new SimpleIntegerProperty(id_transaksi);
         this.date_transaksi = date_transaksi;
         this.name_barang = new SimpleStringProperty(name_barang);
-        this.amount_transaksi = new SimpleStringProperty(amount_transaksi);
+        this.amount_transaksi = new SimpleIntegerProperty(amount_transaksi);
         this.note_transaksi = new SimpleStringProperty(note_transaksi);
+        this.formatted_amount = new SimpleStringProperty(formatAmount(amount_transaksi));
 
         Image edit_icon = new Image(getClass().getResourceAsStream("/com/example/img/edit-icon.png"));
         ImageView edit_icon_view = new ImageView(edit_icon);
@@ -48,7 +51,6 @@ public class TransaksiTable {
                 Parent editRoot = fxmlLoader.load();
 
                 Stage editStage = new Stage();
-                editStage.initStyle(StageStyle.UNDECORATED);
                 editStage.initModality(Modality.APPLICATION_MODAL);
                 editStage.initOwner(edit_but.getScene().getWindow());
                 Scene scene = new Scene(editRoot);
@@ -107,6 +109,11 @@ public class TransaksiTable {
         this.transaksiController = transaksiController;
     }
 
+    
+    private String formatAmount(int amount) {
+        return "Rp " + String.format("%.d", amount);
+    }
+
     public int getId_transaksi() {
         return id_transaksi.get();
     }
@@ -119,12 +126,20 @@ public class TransaksiTable {
         return name_barang.get();
     }
 
-    public String getAmount_transaksi() {
+    public int getAmount_transaksi() {
         return amount_transaksi.get();
     }
 
     public String getNote_transaksi() {
         return note_transaksi.get();
+    }
+
+    public String getFormattedAmount() {
+        return formatted_amount.get();
+    }
+
+    public StringProperty formattedAmountProperty() {
+        return formatted_amount;
     }
 
     public HBox getButton_box() {

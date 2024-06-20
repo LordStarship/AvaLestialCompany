@@ -5,9 +5,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -28,29 +31,29 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="barangTransaksi" alignment="CENTER" layoutX="10.0" layoutY="290.0" mnemonicParsing="false" onAction="#buttonBarangTransaksi" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Transaksi">
+            <Button fx:id="barangTransaksi" alignment="CENTER" layoutX="10.0" layoutY="290.0" mnemonicParsing="false" onAction="#buttonBarangTransaksi" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar-bot" text="Transaksi">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="barangBarang" alignment="CENTER" layoutX="10.0" layoutY="333.0" mnemonicParsing="false" onAction="#buttonBarangBarang" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Barang">
+            <Button fx:id="barangBarang" alignment="CENTER" layoutX="10.0" layoutY="333.0" mnemonicParsing="false" onAction="#buttonBarangBarang" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar-bot" text="Barang">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="barangDataGame" alignment="CENTER" layoutX="10.0" layoutY="376.0" mnemonicParsing="false" onAction="#buttonBarangDataGame" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Data Game">
+            <Button fx:id="barangDataGame" alignment="CENTER" layoutX="10.0" layoutY="376.0" mnemonicParsing="false" onAction="#buttonBarangDataGame" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar-bot" text="Data Game">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="barangPengguna" alignment="CENTER" layoutX="10.0" layoutY="384.0" mnemonicParsing="false" onAction="#buttonBarangPengguna" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Pengguna">
+            <Button fx:id="barangPengguna" alignment="CENTER" layoutX="10.0" layoutY="384.0" mnemonicParsing="false" onAction="#buttonBarangPengguna" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar-bot" text="Pengguna">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="190.0">
                <children>
-                  <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="laporan-button" text="Logout">
+                  <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="laporan-button laporan-navbar-bot" text="Logout">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -73,6 +76,32 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Button>
+                  <Pane prefHeight="100.0" prefWidth="230.0" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <MenuButton fx:id="barangGameDropdown" mnemonicParsing="false">
+                                <items>
+                                  <MenuItem fx:id="barangGameDropdownItem" mnemonicParsing="false" />
+                                </items>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </MenuButton>
+                              <Pane prefHeight="100.0" prefWidth="89.0" />
+                              <MenuButton fx:id="barangVariationDropdown" layoutX="106.0" layoutY="48.0" mnemonicParsing="false">
+                                 <items>
+                                    <MenuItem fx:id="barangVariationDropdownItem" mnemonicParsing="false" />
+                                 </items>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </MenuButton>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
                </children>
                <opaqueInsets>
                   <Insets />
@@ -88,7 +117,7 @@
               <columns>
                 <TableColumn fx:id="barangID" prefWidth="20.0" reorderable="false" styleClass="laporan-table-col" text="ID" />
                 <TableColumn fx:id="barangName" prefWidth="40.0" reorderable="false" styleClass="laporan-table-col" text="Name" />
-                  <TableColumn fx:id="barangEmail" prefWidth="75.0" reorderable="false" styleClass="laporan-table-col" text="Email" />
+                  <TableColumn fx:id="barangEmail" prefWidth="75.0" reorderable="false" styleClass="laporan-table-col" text="Email/Username" />
                   <TableColumn fx:id="barangGame" prefWidth="30.0" reorderable="false" styleClass="laporan-table-col" text="Game" />
                   <TableColumn fx:id="barangVariation" prefWidth="40.0" reorderable="false" styleClass="laporan-table-col" text="Variation" />
                   <TableColumn fx:id="barangType" prefWidth="30.0" reorderable="false" styleClass="laporan-table-col" text="Type" />

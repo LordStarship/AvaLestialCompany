@@ -28,29 +28,29 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="dataGameTransaksi" alignment="CENTER" layoutX="10.0" layoutY="290.0" mnemonicParsing="false" onAction="#buttonDataGameTransaksi" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Transaksi">
+            <Button fx:id="dataGameTransaksi" alignment="CENTER" layoutX="10.0" layoutY="290.0" mnemonicParsing="false" onAction="#buttonDataGameTransaksi" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar-bot" text="Transaksi">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="dataGameBarang" alignment="CENTER" layoutX="10.0" layoutY="333.0" mnemonicParsing="false" onAction="#buttonDataGameBarang" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Barang">
+            <Button fx:id="dataGameBarang" alignment="CENTER" layoutX="10.0" layoutY="333.0" mnemonicParsing="false" onAction="#buttonDataGameBarang" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar-bot" text="Barang">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="dataGameDataGame" alignment="CENTER" layoutX="10.0" layoutY="376.0" mnemonicParsing="false" onAction="#buttonDataGameDataGame" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Data Game">
+            <Button fx:id="dataGameDataGame" alignment="CENTER" layoutX="10.0" layoutY="376.0" mnemonicParsing="false" onAction="#buttonDataGameDataGame" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar-bot" text="Data Game">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="dataGamePengguna" alignment="CENTER" layoutX="10.0" layoutY="384.0" mnemonicParsing="false" onAction="#buttonDataGamePengguna" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Pengguna">
+            <Button fx:id="dataGamePengguna" alignment="CENTER" layoutX="10.0" layoutY="384.0" mnemonicParsing="false" onAction="#buttonDataGamePengguna" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar-bot" text="Pengguna">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="laporan-button" text="Logout">
+                  <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="laporan-button laporan-navbar-bot" text="Logout">
                      <font>
                         <Font size="20.0" />
                      </font>

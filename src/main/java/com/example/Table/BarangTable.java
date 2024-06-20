@@ -52,7 +52,6 @@ public class BarangTable {
                 Parent editRoot = fxmlLoader.load();
 
                 Stage editStage = new Stage();
-                editStage.initStyle(StageStyle.UNDECORATED);
                 editStage.initModality(Modality.APPLICATION_MODAL);
                 editStage.initOwner(edit_but.getScene().getWindow());
                 Scene scene = new Scene(editRoot);

@@ -13,7 +13,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import com.example.Connections.*;
 import com.example.Form.TransaksiForm;
 import com.example.Table.TransaksiTable;
@@ -106,10 +105,15 @@ public class TransaksiController {
     }
 
     public void initialize() {
+        int id_user = UserSession.getInstance().getLoggedInID();
+        if(id_user != 2) {
+            transaksiPengguna.setVisible(false);
+        }
+
         transaksiID.setCellValueFactory(new PropertyValueFactory<>("id_transaksi"));
         transaksiDate.setCellValueFactory(new PropertyValueFactory<>("date_transaksi"));
         transaksiName.setCellValueFactory(new PropertyValueFactory<>("name_barang"));
-        transaksiAmount.setCellValueFactory(new PropertyValueFactory<>("amount_transaksi"));
+        transaksiAmount.setCellValueFactory(cellData -> cellData.getValue().formattedAmountProperty());
         transaksiNote.setCellValueFactory(new PropertyValueFactory<>("note_transaksi"));
         transaksiAction.setCellValueFactory(new PropertyValueFactory<>("button_box"));
         fetchTransaksiData();
@@ -140,7 +144,6 @@ public class TransaksiController {
                 Parent editRoot = fxmlLoader.load();
 
                 Stage editStage = new Stage();
-                editStage.initStyle(StageStyle.UNDECORATED);
                 editStage.initModality(Modality.APPLICATION_MODAL);
                 editStage.initOwner(transaksiAdd.getScene().getWindow());
 
@@ -180,9 +183,9 @@ public class TransaksiController {
                         int id_transaksi = resultSet.getInt("id_transaksi");
                         Date date_transaksi = resultSet.getDate("date_transaksi");
                         String name_barang = resultSet.getString("name_barang");
-                        String amount_transaksi = resultSet.getString("amount_transaksi");
+                        int amount_transaksi = resultSet.getInt("amount_transaksi");
                         String note_transaksi = resultSet.getString("note_transaksi");
-    
+        
                         TransaksiTable transaksiData = new TransaksiTable(id_transaksi, date_transaksi, name_barang, amount_transaksi, note_transaksi);
                         transaksiTable.getItems().add(transaksiData);
                         transaksiData.setTransaksiController(this);

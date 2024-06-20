@@ -167,6 +167,15 @@
     -fx-font-size: 1.25em;
 }
 
+.laporan-navbar-bot {
+    -fx-border-width: 0 0 1 0;
+    -fx-background-radius: 0;
+    -fx-border-color: black;
+    -fx-scale-on-press: false;
+    -fx-font-family: "Inter";
+    -fx-font-size: 1.25em;
+}
+
 .laporan-table {
     -fx-font-family: "Inter";
 }
@@ -207,12 +216,6 @@
 
 /* edit */
 
-.edit-frame {
-    -fx-border-color: black;
-    -fx-border-width: 1;
-    -fx-border-radius: 20;
-}
-
 .edit-text {
     -fx-font-weight: bold;
     -fx-text-fill: #3A5866;
@@ -233,5 +236,10 @@
     -fx-font-family: "Inter";
 }
 
+/* random */
 
+.date-picker {
+    -fx-opacity: 1.0;
+    -fx-visibility: visible;
+}
 
