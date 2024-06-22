@@ -29,7 +29,7 @@
                      <children>
                         <Button onAction="#barangDeleteFalse" styleClass="delete-button" mnemonicParsing="false" text="Batal">
                            <HBox.margin>
-                              <Insets left="370.0" top="15.0" />
+                              <Insets left="270.0" top="15.0" />
                            </HBox.margin>
                         </Button>
                         <Button fx:id="barangOkDelete" onAction="#barangDeleteTrue" styleClass="add-button" mnemonicParsing="false" text="Oke">

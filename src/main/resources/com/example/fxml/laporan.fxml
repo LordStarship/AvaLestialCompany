@@ -26,7 +26,7 @@
                   <Insets bottom="20.0" top="20.0" />
                </VBox.margin>
             </ImageView>
-            <Button fx:id="laporanLaporan" alignment="CENTER" mnemonicParsing="false" onAction="#buttonLaporanLaporan" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar" text="Laporan">
+            <Button fx:id="laporanLaporan" alignment="CENTER" mnemonicParsing="false" onAction="#buttonLaporanLaporan" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-active" text="Laporan">
                <font>
                   <Font size="20.0" />
                </font>
@@ -53,7 +53,7 @@
             </Button>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="laporan-button laporan-navbar-bot" text="Logout">
+                  <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="laporan-button" text="Logout">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -76,8 +76,8 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <MenuButton fx:id="laporanGameDropdown" mnemonicParsing="false" text="Genshin Impact">
-                                <items>
+                              <MenuButton fx:id="laporanGameDropdown" styleClass="filter-button" mnemonicParsing="false">
+                                 <items>
                                   <MenuItem fx:id="laporanGameDropdownItem" mnemonicParsing="false" />
                                 </items>
                                  <font>
@@ -85,7 +85,7 @@
                                  </font>
                               </MenuButton>
                               <Pane prefHeight="100.0" prefWidth="89.0" />
-                              <MenuButton fx:id="laporanDateDropdown" layoutX="106.0" layoutY="48.0" mnemonicParsing="false" text="Maret">
+                              <MenuButton fx:id="laporanDateDropdown" styleClass="filter-button" layoutX="106.0" layoutY="48.0" mnemonicParsing="false">
                                  <items>
                                     <MenuItem fx:id="laporanDateDropdownItem" mnemonicParsing="false" />
                                  </items>

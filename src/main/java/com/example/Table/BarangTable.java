@@ -3,8 +3,10 @@ package com.example.Table;
 import com.example.BarangController;
 import com.example.Form.BarangForm;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -15,7 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class BarangTable {
     private SimpleIntegerProperty id_barang = new SimpleIntegerProperty();
@@ -24,19 +25,21 @@ public class BarangTable {
     private SimpleStringProperty name_game = new SimpleStringProperty();
     private SimpleStringProperty variation_game = new SimpleStringProperty();
     private SimpleStringProperty type_game = new SimpleStringProperty();
-    private SimpleStringProperty amount_barang = new SimpleStringProperty();
+    private SimpleDoubleProperty amount_barang = new SimpleDoubleProperty(); 
+    private SimpleStringProperty formatted_amount = new SimpleStringProperty();
     private HBox button_box;
     public static BarangTable currentInstance;
     private BarangController barangController;
 
-    public BarangTable(int id_barang, String name_barang, String email_barang, String name_game, String variation_game, String type_game, String amount_barang) {
+    public BarangTable(int id_barang, String name_barang, String email_barang, String name_game, String variation_game, String type_game, Double amount_barang) {
         this.id_barang = new SimpleIntegerProperty(id_barang);
         this.name_barang = new SimpleStringProperty(name_barang);
         this.email_barang = new SimpleStringProperty(email_barang);
         this.name_game = new SimpleStringProperty(name_game);
         this.variation_game = new SimpleStringProperty(variation_game);
         this.type_game = new SimpleStringProperty(type_game);
-        this.amount_barang = new SimpleStringProperty(amount_barang);
+        this.amount_barang = new SimpleDoubleProperty(amount_barang);
+        this.formatted_amount = new SimpleStringProperty(formatAmount(amount_barang));
         
         Image edit_icon = new Image(getClass().getResourceAsStream("/com/example/img/edit-icon.png"));
         ImageView edit_icon_view = new ImageView(edit_icon);
@@ -84,7 +87,6 @@ public class BarangTable {
                 Parent deleteRoot = fxmlLoader.load();
 
                 Stage deleteStage = new Stage();
-                deleteStage.initStyle(StageStyle.UNDECORATED);
                 deleteStage.initModality(Modality.APPLICATION_MODAL);
                 deleteStage.initOwner(edit_but.getScene().getWindow());
                 Scene scene = new Scene(deleteRoot);
@@ -108,6 +110,10 @@ public class BarangTable {
 
     public void setBarangController(BarangController barangController) {
         this.barangController = barangController;
+    }
+
+    private String formatAmount(double amount) {
+        return "Rp " + String.format("%,.2f", amount);
     }
 
     public int getId_barang() {
@@ -134,12 +140,20 @@ public class BarangTable {
         return type_game.get();
     }
 
-    public String getAmount_barang() {
+    public Double getAmount_barang() {
         return amount_barang.get();
     }
 
     public HBox getButton_box() {
         return button_box;
+    }
+
+    public String getFormattedAmount() {
+        return formatted_amount.get();
+    }
+
+    public StringProperty formattedAmountProperty() {
+        return formatted_amount;
     }
 
     public BarangController getBarangController() {

@@ -36,7 +36,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="barangBarang" alignment="CENTER" layoutX="10.0" layoutY="333.0" mnemonicParsing="false" onAction="#buttonBarangBarang" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar-bot" text="Barang">
+            <Button fx:id="barangBarang" alignment="CENTER" layoutX="10.0" layoutY="333.0" mnemonicParsing="false" onAction="#buttonBarangBarang" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-active-bot" text="Barang">
                <font>
                   <Font size="20.0" />
                </font>
@@ -51,9 +51,9 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="190.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="laporan-button laporan-navbar-bot" text="Logout">
+                  <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="laporan-button" text="Logout">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -62,7 +62,7 @@
             </HBox>
          </children>
       </VBox>
-      <VBox prefHeight="600.0" prefWidth="790.0">
+      <VBox prefHeight="600.0" prefWidth="800.0">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="101.0" prefWidth="800.0">
                <children>
@@ -81,7 +81,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <MenuButton fx:id="barangGameDropdown" mnemonicParsing="false">
+                              <MenuButton fx:id="barangGameDropdown" styleClass="filter-button" mnemonicParsing="false">
                                 <items>
                                   <MenuItem fx:id="barangGameDropdownItem" mnemonicParsing="false" />
                                 </items>
@@ -90,7 +90,7 @@
                                  </font>
                               </MenuButton>
                               <Pane prefHeight="100.0" prefWidth="89.0" />
-                              <MenuButton fx:id="barangVariationDropdown" layoutX="106.0" layoutY="48.0" mnemonicParsing="false">
+                              <MenuButton fx:id="barangVariationDropdown" styleClass="filter-button" layoutX="106.0" layoutY="48.0" mnemonicParsing="false">
                                  <items>
                                     <MenuItem fx:id="barangVariationDropdownItem" mnemonicParsing="false" />
                                  </items>
@@ -113,14 +113,13 @@
                   <Insets left="30.0" />
                </padding>
             </HBox>
-            <TableView fx:id="barangTable" prefHeight="500.0" prefWidth="785.0" styleClass="laporan-table">
+            <TableView fx:id="barangTable" prefHeight="500.0" prefWidth="755.0" styleClass="laporan-table">
               <columns>
                 <TableColumn fx:id="barangID" prefWidth="20.0" reorderable="false" styleClass="laporan-table-col" text="ID" />
                 <TableColumn fx:id="barangName" prefWidth="40.0" reorderable="false" styleClass="laporan-table-col" text="Name" />
-                  <TableColumn fx:id="barangEmail" prefWidth="75.0" reorderable="false" styleClass="laporan-table-col" text="Email/Username" />
+                  <TableColumn fx:id="barangEmail" prefWidth="100.0" reorderable="false" styleClass="laporan-table-col" text="Email/Username" />
                   <TableColumn fx:id="barangGame" prefWidth="30.0" reorderable="false" styleClass="laporan-table-col" text="Game" />
                   <TableColumn fx:id="barangVariation" prefWidth="40.0" reorderable="false" styleClass="laporan-table-col" text="Variation" />
-                  <TableColumn fx:id="barangType" prefWidth="30.0" reorderable="false" styleClass="laporan-table-col" text="Type" />
                   <TableColumn fx:id="barangAmount" prefWidth="50.0" reorderable="false" styleClass="laporan-table-col" text="Amount" />
                   <TableColumn fx:id="barangAction" prefWidth="50.0" reorderable="false" styleClass="laporan-table-col" text="Action" />
               </columns>

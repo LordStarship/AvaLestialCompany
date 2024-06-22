@@ -18,7 +18,7 @@
                         <Font size="24.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="190.0" top="45.0" />
+                        <Insets left="75.0" top="45.0" />
                      </VBox.margin>
                   </Label>
                </children>
@@ -29,7 +29,7 @@
                      <children>
                         <Button onAction="#dataGameDeleteFalse" styleClass="delete-button" mnemonicParsing="false" text="Batal">
                            <HBox.margin>
-                              <Insets left="285.0" top="15.0" />
+                              <Insets left="270.0" top="15.0" />
                            </HBox.margin>
                         </Button>
                         <Button fx:id="gameOkDelete" onAction="#dataGameDeleteTrue" styleClass="add-button" mnemonicParsing="false" text="Oke">

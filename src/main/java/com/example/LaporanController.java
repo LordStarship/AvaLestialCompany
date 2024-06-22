@@ -133,7 +133,7 @@ public class LaporanController {
         laporanDate.setCellValueFactory(new PropertyValueFactory<>("date_transaksi"));
         laporanIDAccount.setCellValueFactory(new PropertyValueFactory<>("id_barang"));
         laporanGame.setCellValueFactory(new PropertyValueFactory<>("name_game"));
-        laporanAmount.setCellValueFactory(new PropertyValueFactory<>("amount_transaksi"));
+        laporanAmount.setCellValueFactory(cellData -> cellData.getValue().formattedAmountProperty());
         fetchLaporanData();
 
         logoutButton.setOnAction(event -> {
@@ -234,7 +234,7 @@ public class LaporanController {
                         Date date_transaksi = resultSet.getDate("date_transaksi");
                         int id_barang = resultSet.getInt("id_barang");
                         String name_game = resultSet.getString("name_game");
-                        String amount_transaksi = resultSet.getString("amount_transaksi");
+                        Double amount_transaksi = resultSet.getDouble("amount_transaksi");
                         
                         LaporanTable laporanData = new LaporanTable(id_transaksi, date_transaksi, id_barang, name_game, amount_transaksi);
                         laporanTable.getItems().add(laporanData);

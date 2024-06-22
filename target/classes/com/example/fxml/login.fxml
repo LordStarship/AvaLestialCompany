@@ -20,7 +20,7 @@
          <center>
             <ImageView fx:id="loginLogo" styleClass="login-logo" BorderPane.alignment="CENTER">
                <image>
-                  <Image url="@../img/VertinS-logo.png" />
+                  <Image url="@../img/app-logo.png" />
                </image>
             </ImageView>
          </center>

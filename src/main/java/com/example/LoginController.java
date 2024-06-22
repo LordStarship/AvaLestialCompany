@@ -83,8 +83,8 @@ public class LoginController {
         loginLeftPane.prefHeightProperty().bind(loginPane.heightProperty());
         loginRightPane.prefHeightProperty().bind(loginPane.heightProperty());
 
-        loginLogo.fitHeightProperty().bind(loginLeftPane.heightProperty().multiply(0.4));
-        loginLogo.fitWidthProperty().bind(loginLeftPane.widthProperty().multiply(0.7));
+        loginLogo.fitHeightProperty().bind(loginLeftPane.heightProperty().multiply(0.2));
+        loginLogo.fitWidthProperty().bind(loginLeftPane.widthProperty().multiply(0.5));
 
         loginRightBox.prefHeightProperty().bind(loginRightPane.heightProperty());
         loginRightBox.prefWidthProperty().bind(loginRightPane.widthProperty());
@@ -175,7 +175,7 @@ public class LoginController {
                                     String css = getClass().getResource("css/application.css").toExternalForm();
                                     Font.loadFont(getClass().getResource("fonts/Inter-VariableFont_slnt_wght.ttf").toExternalForm(), 24);
                                     Stage newStage = new Stage();
-                                    newStage.setTitle("Ava Lestial Company");
+                                    newStage.setTitle("Ava'Lestial Company");
                                     Scene scene = new Scene(root);
                                     scene.getStylesheets().add(css);
                                     newStage.setScene(scene);

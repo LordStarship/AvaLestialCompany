@@ -18,6 +18,7 @@ public class App extends Application {
             Scene scene = new Scene(root);
             String css = this.getClass().getResource("css/application.css").toExternalForm();
             Font.loadFont(getClass().getResource("fonts/Montserrat-VariableFont_wght.ttf").toExternalForm(), 24);
+            stage.setTitle("Ava'Lestial Company");
             scene.getStylesheets().add(css);
             stage.setFullScreen(true);
             stage.setScene(scene);

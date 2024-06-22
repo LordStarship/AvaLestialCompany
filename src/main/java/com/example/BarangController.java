@@ -140,8 +140,7 @@ public class BarangController {
         barangEmail.setCellValueFactory(new PropertyValueFactory<>("email_barang"));
         barangGame.setCellValueFactory(new PropertyValueFactory<>("name_game"));
         barangVariation.setCellValueFactory(new PropertyValueFactory<>("variation_game"));
-        barangType.setCellValueFactory(new PropertyValueFactory<>("type_game"));
-        barangAmount.setCellValueFactory(new PropertyValueFactory<>("amount_barang"));
+        barangAmount.setCellValueFactory(cellData -> cellData.getValue().formattedAmountProperty());
         barangAction.setCellValueFactory(new PropertyValueFactory<>("button_box"));
         fetchBarangData(null, null);
 
@@ -298,7 +297,7 @@ public class BarangController {
                         String name_game = resultSet.getString("name_game");
                         String variation_game = resultSet.getString("variation_game");
                         String type_game = resultSet.getString("type_game");
-                        String amount_barang = resultSet.getString("amount_barang");
+                        Double amount_barang = resultSet.getDouble("amount_barang");
         
                         BarangTable barangData = new BarangTable(id_barang, name_barang, email_barang, name_game, variation_game, type_game, amount_barang);
                         barangTable.getItems().add(barangData);

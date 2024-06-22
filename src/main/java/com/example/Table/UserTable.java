@@ -14,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class UserTable {
     private SimpleIntegerProperty id_user = new SimpleIntegerProperty();
@@ -79,7 +78,6 @@ public class UserTable {
                 Parent deleteRoot = fxmlLoader.load();
 
                 Stage deleteStage = new Stage();
-                deleteStage.initStyle(StageStyle.UNDECORATED);
                 deleteStage.initModality(Modality.APPLICATION_MODAL);
                 deleteStage.initOwner(edit_but.getScene().getWindow());
                 Scene scene = new Scene(deleteRoot);

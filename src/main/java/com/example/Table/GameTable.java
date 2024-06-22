@@ -13,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.scene.image.ImageView;
 
 public class GameTable {
@@ -45,7 +44,6 @@ public class GameTable {
                 Parent editRoot = fxmlLoader.load();
 
                 Stage editStage = new Stage();
-                editStage.initStyle(StageStyle.UNDECORATED);
                 editStage.initModality(Modality.APPLICATION_MODAL);
                 editStage.initOwner(edit_but.getScene().getWindow());
                 Scene scene = new Scene(editRoot);

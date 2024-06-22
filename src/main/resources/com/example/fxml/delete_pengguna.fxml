@@ -18,7 +18,7 @@
                         <Font size="24.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="185.0" top="45.0" />
+                        <Insets left="75.0" top="45.0" />
                      </VBox.margin>
                   </Label>
                </children>
@@ -32,7 +32,7 @@
                               <Insets left="270.0" top="15.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="penggunaOkDelete" onAction="#penggunaDeleteTrue" mnemonicParsing="false" text="Oke">
+                        <Button fx:id="penggunaOkDelete" onAction="#penggunaDeleteTrue" mnemonicParsing="false" styleClass="add-button" text="Oke">
                            <HBox.margin>
                               <Insets left="15.0" top="15.0" />
                            </HBox.margin>

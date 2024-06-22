@@ -53,4 +53,10 @@
             </plugin>
         </plugins>
     </build>
+    <distributionManagement>
+        <repository>
+            <id>ava-lestial-company</id>
+            <url>https://github.com/LordStarship/AvaLestialCompany.git</url>
+        </repository>
+    </distributionManagement>
 </project>

@@ -75,7 +75,7 @@ public class BarangForm {
         barangGameEdit.setText(barangTable.getName_game());
         barangVariationEdit.setText(barangTable.getVariation_game());
         barangTypeEdit.setText(barangTable.getType_game());
-        barangAmountEdit.setText(barangTable.getAmount_barang());
+        barangAmountEdit.setText(String.valueOf(barangTable.getAmount_barang()));
     }    
 
     public void handleOkButtonAction(ActionEvent event) {

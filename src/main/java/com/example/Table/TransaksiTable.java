@@ -3,6 +3,8 @@ package com.example.Table;
 import java.sql.Date;
 import com.example.TransaksiController;
 import com.example.Form.TransaksiForm;
+
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -16,24 +18,23 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class TransaksiTable {
     private SimpleIntegerProperty id_transaksi = new SimpleIntegerProperty();
     private Date date_transaksi;
     private SimpleStringProperty name_barang = new SimpleStringProperty();
-    private SimpleIntegerProperty amount_transaksi = new SimpleIntegerProperty();
+    private SimpleDoubleProperty amount_transaksi = new SimpleDoubleProperty();
     private SimpleStringProperty note_transaksi = new SimpleStringProperty(); 
     private SimpleStringProperty formatted_amount = new SimpleStringProperty();
     private HBox button_box;
     public static TransaksiTable currentInstance;
     private TransaksiController transaksiController;
         
-    public TransaksiTable(int id_transaksi, Date date_transaksi, String name_barang, int amount_transaksi, String note_transaksi) {
+    public TransaksiTable(int id_transaksi, Date date_transaksi, String name_barang, Double amount_transaksi, String note_transaksi) {
         this.id_transaksi = new SimpleIntegerProperty(id_transaksi);
         this.date_transaksi = date_transaksi;
         this.name_barang = new SimpleStringProperty(name_barang);
-        this.amount_transaksi = new SimpleIntegerProperty(amount_transaksi);
+        this.amount_transaksi = new SimpleDoubleProperty(amount_transaksi);
         this.note_transaksi = new SimpleStringProperty(note_transaksi);
         this.formatted_amount = new SimpleStringProperty(formatAmount(amount_transaksi));
 
@@ -83,7 +84,6 @@ public class TransaksiTable {
                 Parent deleteRoot = fxmlLoader.load();
 
                 Stage deleteStage = new Stage();
-                deleteStage.initStyle(StageStyle.UNDECORATED);
                 deleteStage.initModality(Modality.APPLICATION_MODAL);
                 deleteStage.initOwner(edit_but.getScene().getWindow());
                 Scene scene = new Scene(deleteRoot);
@@ -110,8 +110,8 @@ public class TransaksiTable {
     }
 
     
-    private String formatAmount(int amount) {
-        return "Rp " + String.format("%.d", amount);
+    private String formatAmount(double amount) {
+        return "Rp " + String.format("%,.2f", amount);
     }
 
     public int getId_transaksi() {
@@ -126,7 +126,7 @@ public class TransaksiTable {
         return name_barang.get();
     }
 
-    public int getAmount_transaksi() {
+    public Double getAmount_transaksi() {
         return amount_transaksi.get();
     }
 

@@ -183,7 +183,7 @@ public class TransaksiController {
                         int id_transaksi = resultSet.getInt("id_transaksi");
                         Date date_transaksi = resultSet.getDate("date_transaksi");
                         String name_barang = resultSet.getString("name_barang");
-                        int amount_transaksi = resultSet.getInt("amount_transaksi");
+                        Double amount_transaksi = resultSet.getDouble("amount_transaksi");
                         String note_transaksi = resultSet.getString("note_transaksi");
         
                         TransaksiTable transaksiData = new TransaksiTable(id_transaksi, date_transaksi, name_barang, amount_transaksi, note_transaksi);

@@ -43,14 +43,14 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="penggunaPengguna" alignment="CENTER" layoutX="10.0" layoutY="384.0" mnemonicParsing="false" onAction="#buttonPenggunaPengguna" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-navbar-bot" text="Pengguna">
+            <Button fx:id="penggunaPengguna" alignment="CENTER" layoutX="10.0" layoutY="384.0" mnemonicParsing="false" onAction="#buttonPenggunaPengguna" prefHeight="86.0" prefWidth="200.0" styleClass="laporan-active-bot" text="Pengguna">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="laporan-button laporan-navbar-bot" text="Logout">
+                  <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="laporan-button" text="Logout">
                      <font>
                         <Font size="20.0" />
                      </font>
